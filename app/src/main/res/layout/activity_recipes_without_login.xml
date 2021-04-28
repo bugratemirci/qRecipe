@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RecipesWithoutLoginActivity">
+
+    <EditText
+        android:id="@+id/textboxWithoutLoginSearch"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Arama"
+        android:gravity="center"
+        />
+
+    <ListView
+        android:id="@+id/listviewWithoutLoginRecipes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textboxWithoutLoginSearch">
+
+    </ListView>
+
+</RelativeLayout>
