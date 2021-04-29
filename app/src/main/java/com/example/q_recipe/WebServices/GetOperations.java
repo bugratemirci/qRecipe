@@ -1,5 +1,6 @@
 package com.example.q_recipe.WebServices;
 
+import com.example.q_recipe.ENV.GlobalVariables;
 import com.example.q_recipe.Models.Recipe;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -44,7 +45,7 @@ public class GetOperations {
 
     /*public List<User> getUsers(){
         List<User> userModelList = null;
-        String url = "http://192.168.1.161:5000/api/users";
+        String url = GlobalVariables.API_URL + "/api/users";
         try{
             // + Json verisi çekiliyor.
             jsonData = GetJsonData(url);
@@ -72,7 +73,7 @@ public class GetOperations {
 
     public List<Recipe> getRecipes(){
         List<Recipe> recipeModelList = null;
-        String url = "http://192.168.1.181:5000/api/recipes";
+        String url = GlobalVariables.API_URL + "/api/recipes";
         try{
             // + Json verisi çekiliyor.
             jsonData = GetJsonData(url);
@@ -100,7 +101,7 @@ public class GetOperations {
 
     public List<Recipe> getRecipeByName(String nameKey){
         List<Recipe> recipeModelList = null;
-        String url = "http://192.168.1.181:5000/api/recipes/getRecipeByName/" + nameKey;
+        String url = GlobalVariables.API_URL + "/api/recipes/getRecipeByName/" + nameKey;
         try{
             // + Json verisi çekiliyor.
             jsonData = GetJsonData(url);

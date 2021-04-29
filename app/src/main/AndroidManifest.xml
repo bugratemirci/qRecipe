@@ -11,9 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Q_recipe"
-        android:usesCleartextTraffic="true"
-        >
-        <activity android:name=".RecipesWithoutLoginActivity"></activity>
+        android:usesCleartextTraffic="true">
+        <activity android:name=".AddRecipeActivity"></activity>
+        <activity android:name=".MainPageActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

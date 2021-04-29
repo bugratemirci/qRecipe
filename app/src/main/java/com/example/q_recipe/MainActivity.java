@@ -7,11 +7,17 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.example.q_recipe.WebServices.PostOperations;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button buttonLogin, buttonContinueWithoutLogin;
-
+    private PostOperations postOperations = new PostOperations();
+    private EditText textboxEmailLogin, textboxPasswordLogin;
+    private TextView textViewWarningLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +30,20 @@ public class MainActivity extends AppCompatActivity {
 
         buttonLogin = findViewById(R.id.buttonLogin);
         buttonContinueWithoutLogin = findViewById(R.id.buttonContinueWithoutLogin);
+        textboxEmailLogin = findViewById(R.id.textboxEmailLogin);
+        textboxPasswordLogin = findViewById(R.id.textboxPasswordLogin);
+        textViewWarningLogin = findViewById(R.id.textViewWarningLogin);
 
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postOperations.loginOperations(MainActivity.this,String.valueOf(textboxEmailLogin.getText()), String.valueOf(textboxPasswordLogin.getText()), textViewWarningLogin);
+            }
+        });
         buttonContinueWithoutLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), RecipesWithoutLoginActivity.class);
+                Intent intent = new Intent(MainActivity.this, MainPageActivity.class);
                 startActivity(intent);
             }
         });

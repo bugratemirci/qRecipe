@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/textboxUserName"
+        android:id="@+id/textboxEmailLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -29,7 +29,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="227dp"
-        android:text="Kullanıcı adı:" />
+        android:text="Email:" />
 
     <TextView
         android:id="@+id/textView2"
@@ -44,10 +44,10 @@
         android:text="Parola:" />
 
     <EditText
-        android:id="@+id/textboxPassword"
+        android:id="@+id/textboxPasswordLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textboxUserName"
+        android:layout_below="@+id/textboxEmailLogin"
         android:layout_marginStart="56dp"
         android:layout_marginLeft="56dp"
         android:layout_marginTop="3dp"
@@ -60,7 +60,7 @@
         android:id="@+id/buttonLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textboxPassword"
+        android:layout_below="@+id/textboxPasswordLogin"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="57dp"
         android:text="Giriş" />
@@ -73,4 +73,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp"
         android:text="Giriş Yapmadan Devam Et" />
+
+    <TextView
+        android:id="@+id/textViewWarningLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonContinueWithoutLogin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp" />
 </RelativeLayout>
