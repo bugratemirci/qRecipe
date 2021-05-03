@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "379956292993",
+    "project_id": "q-recipe",
+    "storage_bucket": "q-recipe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:379956292993:android:3f80f33f75916c6f3f8c80",
+        "android_client_info": {
+          "package_name": "com.example.q_recipe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "379956292993-141hl09cm4eeci3naqoo90se0eej9cra.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaxUyknaTADo4lQAzcOJZXGRgBD0pzzsA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "379956292993-141hl09cm4eeci3naqoo90se0eej9cra.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

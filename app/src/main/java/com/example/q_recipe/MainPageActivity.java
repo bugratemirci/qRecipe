@@ -6,14 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.q_recipe.Business.LoggedInUser;
 import com.example.q_recipe.Models.Recipe;
@@ -31,38 +29,25 @@ public class MainPageActivity extends AppCompatActivity {
     private String[] names;
     private EditText textboxWithoutLoginSearch;
     private Slugify slugify = new Slugify();
-    private Button buttonAddRecipe;
+
     private LoggedInUser loggedInUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
-        listviewWithoutLoginRecipes = findViewById(R.id.listviewWithoutLoginRecipes);
+        listviewWithoutLoginRecipes = findViewById(R.id.listviewWithoutLoginRecipes1);
         textboxWithoutLoginSearch = findViewById(R.id.textboxWithoutLoginSearch);
-        buttonAddRecipe = findViewById(R.id.buttonAddRecipe);
+
+        getSupportActionBar().hide();
 
         Intent intent = getIntent();
         loggedInUser = (LoggedInUser) intent.getSerializableExtra("user");
-        if(loggedInUser == null) {
 
-            buttonAddRecipe.setVisibility(View.INVISIBLE);
-        }
-        else {
-            buttonAddRecipe.setVisibility(View.VISIBLE);
-
-        }
 
 
         fillListview();
-        buttonAddRecipe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent addRecipeIntent = new Intent(MainPageActivity.this, AddRecipeActivity.class);
-                addRecipeIntent.putExtra("user",(Serializable) loggedInUser);
-                startActivity(addRecipeIntent);
-            }
-        });
+
         textboxWithoutLoginSearch.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 

@@ -31,6 +31,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         buttonNewRecipeSave = findViewById(R.id.buttonNewRecipeSave);
         imageButtonRecipeImage = findViewById(R.id.imageButtonRecipeImage);
         labelWarningAddRecipe = findViewById(R.id.labelWarningAddRecipe);
+        getSupportActionBar().hide();
         Intent intent = getIntent();
         LoggedInUser loggedInUser = (LoggedInUser) intent.getSerializableExtra("user");
         buttonNewRecipeSave.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +44,8 @@ public class AddRecipeActivity extends AppCompatActivity {
                         ingredients,
                         labelWarningAddRecipe,
                         loggedInUser.getAccess_token(),
-                        loggedInUser.getId()
+                        loggedInUser.getId(),
+                        loggedInUser
                         );
             }
         });

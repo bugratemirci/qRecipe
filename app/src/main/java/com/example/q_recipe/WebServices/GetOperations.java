@@ -2,6 +2,7 @@ package com.example.q_recipe.WebServices;
 
 import com.example.q_recipe.ENV.GlobalVariables;
 import com.example.q_recipe.Models.Recipe;
+import com.example.q_recipe.Models.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -124,6 +125,33 @@ public class GetOperations {
         }
         finally {
             return recipeModelList;
+        }
+    }
+    public User getUser(String id){
+        User user = null;
+        String url = GlobalVariables.API_URL + "/api/userInfo/" + id;
+        try{
+            // + Json verisi çekiliyor.
+            jsonData = GetJsonData(url);
+            // -
+
+            // + Gelen veri liste şeklinde olacağı için
+            // Modelimizin Liste tipinde olacağını belirtiyoruz.
+            Type userType = new TypeToken<User>(){}.getType();
+            // -
+
+            // + Gson ile Json verisi okunur ve Listeye alınır.
+            Gson gson = new Gson();
+            user  = gson.fromJson(jsonData, userType);
+            // -
+
+
+        }
+        catch (Exception exception){
+            exception.printStackTrace();
+        }
+        finally {
+            return user;
         }
     }
 }

@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ACBFA4"
     tools:context=".MainPageActivity">
 
     <EditText
         android:id="@+id/textboxWithoutLoginSearch"
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="80dp"
         android:ems="10"
         android:gravity="center"
@@ -16,21 +17,11 @@
         android:inputType="textPersonName" />
 
     <ListView
-        android:id="@+id/listviewWithoutLoginRecipes"
-        android:layout_width="411dp"
-        android:layout_height="731dp"
-        android:layout_below="@+id/textboxWithoutLoginSearch"
-        android:layout_marginBottom="70dp">
+        android:id="@+id/listviewWithoutLoginRecipes1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textboxWithoutLoginSearch">
 
     </ListView>
-
-    <Button
-        android:id="@+id/buttonAddRecipe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="6dp"
-        android:text="Tarif Ekle" />
 
 </RelativeLayout>
