@@ -27,6 +27,7 @@ public class ProfileEditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_edit);
+        getSupportActionBar().hide();
 
         textboxProfileEditEmail = findViewById(R.id.textboxProfileEditEmail);
         textboxProfileEditName = findViewById(R.id.textboxProfileEditName);

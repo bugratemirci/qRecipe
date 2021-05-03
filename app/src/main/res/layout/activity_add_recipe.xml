@@ -14,8 +14,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="83dp"
         android:text="Tarif Adı:" />
 
@@ -26,22 +26,10 @@
         android:layout_below="@+id/textView3"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="57dp"
         android:text="Açıklama:" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView5"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="56dp"
-        android:text="Tarif Resmi:" />
 
     <EditText
         android:id="@+id/textboxNewRecipeName"
@@ -61,75 +49,26 @@
         android:layout_width="wrap_content"
         android:layout_height="78dp"
         android:layout_below="@+id/textboxNewRecipeName"
-        android:layout_marginStart="63dp"
-        android:layout_marginLeft="63dp"
+        android:layout_marginStart="69dp"
+        android:layout_marginLeft="69dp"
         android:layout_marginTop="15dp"
-        android:layout_toEndOf="@+id/textView4"
-        android:layout_toRightOf="@+id/textView4"
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_toRightOf="@+id/textView3"
         android:ems="10"
         android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/buttonNewRecipeIngredients"
+        android:id="@+id/buttonNewRecipeChooseMaterials"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textboxNewRecipeDescription"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="29dp"
-        android:layout_toEndOf="@+id/textView5"
-        android:layout_toRightOf="@+id/textView5"
-        android:text="Malzemeleri Seç"
+        android:layout_marginStart="69dp"
+        android:layout_marginLeft="69dp"
+        android:layout_marginTop="56dp"
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_toRightOf="@+id/textView3"
+        android:text="İleri"
         android:textColor="#000000"
         app:backgroundTint="#E2E8CE" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="74dp"
-        android:text="Malzemeler:" />
-
-    <ImageButton
-        android:id="@+id/imageButtonRecipeImage"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonNewRecipeIngredients"
-        android:layout_marginStart="57dp"
-        android:layout_marginLeft="57dp"
-        android:layout_marginTop="34dp"
-        android:layout_toEndOf="@+id/textView6"
-        android:layout_toRightOf="@+id/textView6"
-        android:background="@color/imageButton"
-        app:srcCompat="@android:drawable/ic_menu_add" />
-
-    <Button
-        android:id="@+id/buttonNewRecipeSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageButtonRecipeImage"
-        android:layout_marginStart="104dp"
-        android:layout_marginLeft="104dp"
-        android:layout_marginTop="42dp"
-        android:layout_toEndOf="@+id/textView6"
-        android:layout_toRightOf="@+id/textView6"
-        android:text="Kaydet"
-        android:textColor="#000000"
-        app:backgroundTint="#E2E8CE" />
-
-    <TextView
-        android:id="@+id/labelWarningAddRecipe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonNewRecipeSave"
-        android:layout_marginStart="98dp"
-        android:layout_marginLeft="98dp"
-        android:layout_marginTop="35dp"
-        android:layout_toEndOf="@+id/textView6"
-        android:layout_toRightOf="@+id/textView6" />
 </RelativeLayout>

@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Q_recipe"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ProfileEditActivity"></activity>
+        <activity android:name=".ChooseMaterialsActivity"></activity>
+        <activity android:name=".ProfileEditActivity" />
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".HomepageActivity" />
         <activity android:name=".SplashScreenActivity">

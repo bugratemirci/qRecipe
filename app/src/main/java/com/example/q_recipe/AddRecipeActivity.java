@@ -4,49 +4,41 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.example.q_recipe.Business.LoggedInUser;
-import com.example.q_recipe.WebServices.PostOperations;
+import com.example.q_recipe.Business.RecipeDetails;
 
 public class AddRecipeActivity extends AppCompatActivity {
     private EditText textboxNewRecipeName, textboxNewRecipeDescription;
-    private Button buttonNewRecipeIngredients, buttonNewRecipeSave;
-    private ImageButton imageButtonRecipeImage;
-    private String[] ingredients = new String[]{"Tuz", "Karabiber"};
-    private TextView labelWarningAddRecipe;
+    private Button buttonNewRecipeChooseMaterials;
 
+    private RecipeDetails recipeDetails = new RecipeDetails();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
+        getSupportActionBar().hide();
+
         textboxNewRecipeName = findViewById(R.id.textboxNewRecipeName);
         textboxNewRecipeDescription = findViewById(R.id.textboxNewRecipeDescription);
-        buttonNewRecipeIngredients = findViewById(R.id.buttonNewRecipeIngredients);
-        buttonNewRecipeSave = findViewById(R.id.buttonNewRecipeSave);
-        imageButtonRecipeImage = findViewById(R.id.imageButtonRecipeImage);
-        labelWarningAddRecipe = findViewById(R.id.labelWarningAddRecipe);
-        getSupportActionBar().hide();
+        buttonNewRecipeChooseMaterials = findViewById(R.id.buttonNewRecipeChooseMaterials);
+
+
         Intent intent = getIntent();
         LoggedInUser loggedInUser = (LoggedInUser) intent.getSerializableExtra("user");
-        buttonNewRecipeSave.setOnClickListener(new View.OnClickListener() {
+        buttonNewRecipeChooseMaterials.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PostOperations postOperations = new PostOperations();
-                postOperations.addRecipe(AddRecipeActivity.this,
-                        textboxNewRecipeName.getText().toString(),
-                        textboxNewRecipeDescription.getText().toString(),
-                        ingredients,
-                        labelWarningAddRecipe,
-                        loggedInUser.getAccess_token(),
-                        loggedInUser.getId(),
-                        loggedInUser
-                        );
+                Intent intentChooseMaterials = new Intent(AddRecipeActivity.this, ChooseMaterialsActivity.class);
+                recipeDetails.setRecipeName(String.valueOf(textboxNewRecipeName.getText()));
+                recipeDetails.setRecipeDescription(String.valueOf(textboxNewRecipeDescription.getText()));
+                intentChooseMaterials.putExtra("user", loggedInUser);
+                intentChooseMaterials.putExtra("recipe", recipeDetails);
+
+                startActivity(intentChooseMaterials);
             }
         });
 

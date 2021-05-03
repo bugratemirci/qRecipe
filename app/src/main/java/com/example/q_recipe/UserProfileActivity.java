@@ -23,6 +23,7 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+        getSupportActionBar().hide();
 
         Intent intent = getIntent();
         loggedInUser = (LoggedInUser) intent.getSerializableExtra("user");
