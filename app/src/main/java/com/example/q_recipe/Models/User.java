@@ -22,6 +22,17 @@ public class User implements Serializable {
     @Expose
     private String id;
 
+    @SerializedName("notification_token")
+    @Expose
+    private String notificationToken;
+
+    public String getNotificationToken() {
+        return notificationToken;
+    }
+
+    public void setNotificationToken(String notificationToken) {
+        this.notificationToken = notificationToken;
+    }
 
     public String getId() {
         return id;

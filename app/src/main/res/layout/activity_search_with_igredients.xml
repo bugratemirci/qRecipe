@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgray"
+    tools:context=".SearchWithIgredientsActivity">
+
+    <ListView
+        android:id="@+id/listviewSearchIngredientsAll"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/textView20"
+        android:layout_marginTop="18dp" />
+
+    <ListView
+        android:id="@+id/listviewSearchIngredientsSelected"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/listviewSearchIngredientsAll"
+        android:layout_marginTop="50dp" />
+
+    <Button
+        android:id="@+id/buttonSearchWithIngredients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listviewSearchIngredientsSelected"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:background="@drawable/buttonstyle"
+        android:text="Listele"
+        android:textColor="@color/buttonTextColors"
+        app:backgroundTint="@color/buttonColors" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        android:text="Tüm Malzemeler" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listviewSearchIngredientsAll"
+        android:layout_alignStart="@+id/textView20"
+        android:layout_alignLeft="@+id/textView20"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="19dp"
+        android:text="Aranacak Malzemeler" />
+</RelativeLayout>

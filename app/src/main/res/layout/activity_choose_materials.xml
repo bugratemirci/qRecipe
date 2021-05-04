@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ACBFA4"
+    android:background="@color/lightgray"
     tools:context=".ChooseMaterialsActivity">
 
     <ListView
@@ -28,10 +28,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/listviewSelectedRecipeMaterials"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/buttonstyle"
         android:text="İlerle"
         android:textColor="#000000"
-        app:backgroundTint="#E2E8CE" />
+        app:backgroundTint="@color/buttonColors" />
 
     <TextView
         android:id="@+id/textView5"
@@ -51,4 +52,14 @@
         android:layout_alignLeft="@+id/textView5"
         android:layout_marginTop="10dp"
         android:text="Seçilen Malzemeler" />
+
+    <TextView
+        android:id="@+id/labelChooseMaterialWarningLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonUploadAPicture"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="23dp" />
 </RelativeLayout>

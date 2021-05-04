@@ -5,8 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 
 public class SplashScreenActivity extends AppCompatActivity {
+
+    private LinearLayout linearLayout1;
+    private Animation uptodown,downtoup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +20,12 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         getSupportActionBar().hide();
+        linearLayout1 = findViewById(R.id.linearLayout1);
+
+
+        uptodown = AnimationUtils.loadAnimation(this,R.anim.uptodown);
+        linearLayout1.setAnimation(uptodown);
+
 
         new Handler().postDelayed(new Runnable() {
             @Override

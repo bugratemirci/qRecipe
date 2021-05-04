@@ -3,6 +3,8 @@ package com.example.q_recipe.WebServices;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +30,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PostOperations {
@@ -99,7 +103,7 @@ public class PostOperations {
     }
 
 
-    public void loginOperations(Context context, String email, String password, TextView labelWarning) {
+    public void loginOperations(Context context, String email, String password) {
         JSONObject postDataParams = new JSONObject();
 
         try {
@@ -119,7 +123,7 @@ public class PostOperations {
                         // response
                         Log.d("Response", response);
 
-                        labelWarning.setText("Giriş başarılı");
+
 
                         try {
                             /*JSONObject jsonObject = new JSONObject(response);
@@ -167,7 +171,7 @@ public class PostOperations {
                                 // returned data is not JSONObject?
                                 e2.printStackTrace();
                             }
-                            labelWarning.setText("Giriş başarısız");
+
                         }
                     }
                 }
@@ -192,7 +196,7 @@ public class PostOperations {
         queue.add(postRequest);
     }
 
-    public void addRecipe(Context context, String name, String description, String[] ingredients, TextView labelWarningAddRecipe, String access_token, String id, LoggedInUser loggedInUser){
+    public void addRecipe(Context context, String name, String description, ArrayList<String> ingredients, TextView labelWarningAddRecipe, String access_token, String id, LoggedInUser loggedInUser){
         JSONObject postDataParams = new JSONObject();
         JSONArray ingredientList = new JSONArray();
         GetOperations getOperations = new GetOperations();
@@ -211,6 +215,7 @@ public class PostOperations {
             postDataParams.put("id", id);
 
 
+
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -223,11 +228,7 @@ public class PostOperations {
                         // response
                         Log.d("Response", response);
                         labelWarningAddRecipe.setText("Kayıt başarılı");
-                        pushNotification(context,
-                                name,
-                                user.getName() + " tarafından yeni tarif eklendi",
-                                "fYFAVtm5QLWE6SM4hhT-F2:APA91bFJk1JIU-WkFRkaKbMifrTSRACnZj9zPz5JF_XfmNxexkiMZv9zyu7FR8nVYb7U6IPjcp5mF-sCMfgFPKwDADD58er9OuPX-20RJan-yg7AB9Yuv7W0XRBlIp5UB2QThgkchq42",
-                                "AAAAWHco7YE:APA91bGt9bFWiRSsL1DeV8NAf7B5-PiqpmxeWIoBzXUDOPS5x46VhgWoCPk4VlvOEQa6DKr1tj5_LgrptukHbIo1OYpf9Ho5LtlkLsz7kTFte6u9ytpSRVvy9xGgve-MY6q3f3Q-V1mw");
+
                         Intent intent = new Intent(context, MainPageActivity.class);
                         intent.putExtra("user", loggedInUser);
                         context.startActivity(intent);
@@ -278,9 +279,93 @@ public class PostOperations {
         queue.add(postRequest);
     }
 
+    public void getRecipeByIngredients(Context context, ArrayList<String> ingredientsSlug, ListView listViewSearch){
+        JSONObject postDataParams = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        for(String ingredients: ingredientsSlug){
+            jsonArray.put(ingredients);
+        }
+        try {
+            postDataParams.put("ingredients", jsonArray);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        String data = postDataParams.toString();
+        String url = GlobalVariables.API_URL + "/api/recipes/getRecipeByIngredient";
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        String[] ids;
+
+                        Log.d("Response", response);
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            ids = new String[jsonArray.length()];
+                            for(int i = 0; i < jsonArray.length(); i++){
+                                ids[i] = jsonArray.getJSONObject(i).getString("name");
+                            }
+
+
+                            ArrayAdapter<String> recipeNamesAdapter = new  ArrayAdapter<String>(context,
+                                    android.R.layout.simple_list_item_1, android.R.id.text1, ids);
+                            listViewSearch.setAdapter(recipeNamesAdapter);
+                        }
+                        catch (Exception exception){
+                            exception.printStackTrace();
+                        }
+
+
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // As of f605da3 the following should work
+                        NetworkResponse response = error.networkResponse;
+                        if (error instanceof ServerError && response != null) {
+                            try {
+                                String res = new String(response.data,
+                                        HttpHeaderParser.parseCharset((response).headers, "utf-8"));
+                                // Now you can use any deserializer to make sense of data
+                                JSONObject obj = new JSONObject(res);
+                            } catch (UnsupportedEncodingException e1) {
+                                // Couldn't properly decode data to string
+                                e1.printStackTrace();
+                            } catch (JSONException e2) {
+                                // returned data is not JSONObject?
+                                e2.printStackTrace();
+                            }
+
+                        }
+                    }
+                }
+        ) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return data == null ? null : data.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+                    //Log.v("Unsupported Encoding while trying to get the bytes", data);
+                    return null;
+                }
+            }
+        };
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(postRequest);
+    }
+
     public void pushNotification(Context context, String body, String title, String to, String token){
         JSONObject postDataParams = new JSONObject();
         JSONObject postNotification = new JSONObject();
+
 
         try {
             postNotification.put("body", body);

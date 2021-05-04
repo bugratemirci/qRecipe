@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ACBFA4"
+    android:background="@color/lightgray"
     tools:context=".AddRecipeActivity">
 
     <TextView
@@ -67,8 +67,9 @@
         android:layout_marginTop="56dp"
         android:layout_toEndOf="@+id/textView3"
         android:layout_toRightOf="@+id/textView3"
+        android:background="@drawable/buttonstyle"
         android:text="İleri"
-        android:textColor="#000000"
-        app:backgroundTint="#E2E8CE" />
+        android:textColor="@color/buttonTextColors"
+        app:backgroundTint="@color/buttonColors" />
 
 </RelativeLayout>

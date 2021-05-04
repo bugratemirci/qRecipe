@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ACBFA4"
+    android:background="@color/lightgray"
     tools:context=".ProfileEditActivity">
 
     <EditText
@@ -56,9 +56,10 @@
         android:layout_marginStart="150dp"
         android:layout_marginLeft="150dp"
         android:layout_marginTop="49dp"
+        android:background="@drawable/buttonstyle"
         android:text="Kaydet"
-        android:textColor="#000000"
-        app:backgroundTint="#E2E8CE" />
+        android:textColor="@color/buttonTextColors"
+        app:backgroundTint="@color/buttonColors" />
 
     <TextView
         android:id="@+id/labelEditProfileWarning"

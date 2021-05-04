@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Q_recipe"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ChooseMaterialsActivity"></activity>
+        <activity android:name=".SearchWithIngredientsRecipeListActivity"></activity>
+        <activity android:name=".SearchWithIgredientsActivity" />
+        <activity android:name=".UploadPictureActivity" />
+        <activity android:name=".ChooseMaterialsActivity" />
         <activity android:name=".ProfileEditActivity" />
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".HomepageActivity" />
