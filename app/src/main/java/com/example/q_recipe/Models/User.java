@@ -10,6 +10,14 @@ public class User implements Serializable {
     @Expose
     private String name;
 
+    @SerializedName("about")
+    @Expose
+    private String about;
+
+    @SerializedName("phone")
+    @Expose
+    private String phone;
+
     @SerializedName("email")
     @Expose
     private String email;
@@ -25,6 +33,34 @@ public class User implements Serializable {
     @SerializedName("notification_token")
     @Expose
     private String notificationToken;
+
+    @SerializedName("profile_image")
+    @Expose
+    private String profile_image;
+
+    public String getProfile_image() {
+        return profile_image;
+    }
+
+    public void setProfile_image(String profile_image) {
+        this.profile_image = profile_image;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getNotificationToken() {
         return notificationToken;

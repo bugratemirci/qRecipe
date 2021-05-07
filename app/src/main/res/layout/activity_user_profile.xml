@@ -17,13 +17,18 @@
             android:layout_height="288dp"
             android:background="#d54b6e"
             android:orientation="vertical">
-
-            <ImageView
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/imageViewProfileImage"
                 android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center_horizontal"
+                android:layout_height="150dp" android:layout_gravity="center_horizontal"
                 android:layout_marginTop="45dp"
-                android:src="@drawable/users" />
+                android:src="@drawable/users"
+
+
+                android:scaleType="centerInside">
+
+            </com.mikhaellopez.circularimageview.CircularImageView>
+
 
             <TextView
                 android:id="@+id/textViewProfileName"
@@ -83,30 +88,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:text="Telefon numarası gelecek"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal"
-            android:paddingLeft="25dp">
-
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_baseline_location_on_24" />
-
-            <TextView
-
-                android:id="@+id/textViewProfileCountry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:text="Lokasyon gelecek"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -123,7 +104,7 @@
                 android:src="@drawable/ic_baseline_group_24" />
 
             <TextView
-                android:id="@+id/textViewProfileRole"
+                android:id="@+id/textViewProfileAbout"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

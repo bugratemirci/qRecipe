@@ -3,6 +3,8 @@
     package="com.example.q_recipe">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,20 +13,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Q_recipe"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".SearchWithIngredientsRecipeListActivity"></activity>
+        android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true"
+        >
+        <activity android:name=".RecipeDetailActivity">
+
+        </activity>
+        <activity android:name=".AdminDashboardActivity" />
+        <activity android:name=".SearchWithIngredientsRecipeListActivity" />
         <activity android:name=".SearchWithIgredientsActivity" />
-        <activity android:name=".UploadPictureActivity" />
-        <activity android:name=".ChooseMaterialsActivity" />
-        <activity android:name=".ProfileEditActivity" />
-        <activity android:name=".UserProfileActivity" />
-        <activity android:name=".HomepageActivity" />
-        <activity android:name=".SplashScreenActivity">
+        <activity android:name=".UploadPictureActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ChooseMaterialsActivity" />
+        <activity android:name=".ProfileEditActivity" />
+        <activity android:name=".UserProfileActivity" />
+        <activity android:name=".HomepageActivity" />
+        <activity android:name=".SplashScreenActivity">
+
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".AddRecipeActivity" />

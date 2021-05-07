@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.q_recipe.Models.Ingredient;
@@ -20,11 +22,13 @@ import java.util.List;
 public class SearchWithIgredientsActivity extends AppCompatActivity {
     private Button buttonSearchWithIngredients;
     private ListView listviewSearchIngredientsAll, listviewSearchIngredientsSelected;
-    private ArrayList<String> ingredients = new ArrayList<>();
-    private ArrayList<String> selectedIngredients;
 
+    private ArrayList<String> selectedIngredients;
+    private EditText textboxSearchIngredient;
+    private ArrayList<String> ingredients = new ArrayList<>();
     private GetOperations getOperations = new GetOperations();
     private List<Ingredient> ingredientList;
+    private String getNameIngredients;
 
 
     @Override
@@ -34,7 +38,10 @@ public class SearchWithIgredientsActivity extends AppCompatActivity {
         listviewSearchIngredientsAll = findViewById(R.id.listviewSearchIngredientsAll);
         listviewSearchIngredientsSelected = findViewById(R.id.listviewSearchIngredientsSelected);
         buttonSearchWithIngredients = findViewById(R.id.buttonSearchWithIngredients);
+        textboxSearchIngredient = findViewById(R.id.textboxSearchIngredientAddRecipe);
+
         getSupportActionBar().hide();
+
 
         ingredientList = getOperations.getIngredients();
         for(Ingredient ingredient: ingredientList) {
@@ -42,23 +49,45 @@ public class SearchWithIgredientsActivity extends AppCompatActivity {
         }
 
         selectedIngredients = new ArrayList<>();
-        fillListView();
+        fillListView(null);
+        textboxSearchIngredient.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                fillListView(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+
+            }
+        });
         listviewSearchIngredientsAll.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedIngredients.add(String.valueOf(ingredients.toArray()[position]));
-                ingredients.remove(String.valueOf(ingredients.toArray()[position]));
+
+                selectedIngredients.add(String.valueOf(listviewSearchIngredientsAll.getItemAtPosition(position)));
+                ingredients.remove(String.valueOf(listviewSearchIngredientsAll.getItemAtPosition(position)));
                 selectedIngredients.toArray();
-                fillListView();
+
+                fillListView(null);
+
+
             }
+
         });
         listviewSearchIngredientsSelected.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 ingredients.add(String.valueOf(selectedIngredients.toArray()[position]));
-                selectedIngredients.remove(selectedIngredients.toArray()[position]);
-                fillListView();
+                selectedIngredients.remove(String.valueOf(selectedIngredients.toArray()[position]));
+                fillListView(null);
             }
         });
         buttonSearchWithIngredients.setOnClickListener(new View.OnClickListener() {
@@ -72,10 +101,19 @@ public class SearchWithIgredientsActivity extends AppCompatActivity {
         });
 
     }
-    public void fillListView(){
-        ArrayAdapter<String> recipeNamesAdapter = new  ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, ingredients);
-        listviewSearchIngredientsAll.setAdapter(recipeNamesAdapter);
+    public void fillListView(CharSequence charSequence){
+        if(charSequence == null){
+
+            ArrayAdapter<String> recipeNamesAdapter = new  ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, android.R.id.text1, ingredients);
+            listviewSearchIngredientsAll.setAdapter(recipeNamesAdapter);
+        }
+        else{
+            ArrayAdapter<String> recipeNamesAdapter = new  ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, android.R.id.text1, ingredients);
+            recipeNamesAdapter.getFilter().filter(charSequence);
+            listviewSearchIngredientsAll.setAdapter(recipeNamesAdapter);
+        }
         if(selectedIngredients.size() != 0){
             ArrayAdapter<String> selectedRecipeNamesAdapter = new  ArrayAdapter<String>(this,
                     android.R.layout.simple_list_item_1, android.R.id.text1, selectedIngredients);

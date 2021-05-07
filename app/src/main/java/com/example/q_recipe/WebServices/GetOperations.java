@@ -120,6 +120,34 @@ public class GetOperations {
         }
     }
 
+    public String getProfilePhoto(String id){
+        String profilePhoto = null;
+        String url = GlobalVariables.API_URL + "/uploads/profile_images/" + id + "_profile_photo.jpeg";
+        try{
+            // + Json verisi çekiliyor.
+            jsonData = GetJsonData(url);
+            // -
+
+            // + Gelen veri liste şeklinde olacağı için
+            // Modelimizin Liste tipinde olacağını belirtiyoruz.
+            Type userType = new TypeToken<String>(){}.getType();
+            // -
+
+            // + Gson ile Json verisi okunur ve Listeye alınır.
+            Gson gson = new Gson();
+            profilePhoto  = gson.fromJson(jsonData, userType);
+            // -
+
+
+        }
+        catch (Exception exception){
+            exception.printStackTrace();
+        }
+        finally {
+            return profilePhoto;
+        }
+    }
+
     public List<Recipe> getRecipeByName(String nameKey){
         List<Recipe> recipeModelList = null;
         String url = GlobalVariables.API_URL + "/api/recipes/getRecipeByName/" + nameKey;

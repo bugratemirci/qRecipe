@@ -8,16 +8,19 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import com.example.q_recipe.Business.LoggedInUser;
 import com.example.q_recipe.WebServices.GetOperations;
 
 public class HomepageActivity extends AppCompatActivity {
-    private LoggedInUser loggedInUser;
-    private CardView imageButtonProfile, imageButtonAllRecipes, imageButtonAddRecipe, imageButtonMainPageSearchButton;
+
+    private CardView imageButtonProfile, imageButtonAllRecipes, imageButtonAddRecipe, imageButtonMainPageSearchButton, imageButtonAdminPanel;
     private GetOperations getOperations = new GetOperations();
+    private LinearLayout adminLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +29,31 @@ public class HomepageActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         Intent intent = getIntent();
-        loggedInUser = (LoggedInUser) intent.getSerializableExtra("user");
+        LoggedInUser loggedInUser = (LoggedInUser) intent.getSerializableExtra("user");
 
         imageButtonAllRecipes = findViewById(R.id.imageButtonAllRecipes);
         imageButtonAddRecipe = findViewById(R.id.imageButtonAddRecipe);
         imageButtonProfile = findViewById(R.id.imageButtonProfile);
-        imageButtonMainPageSearchButton = findViewById(R.id.imageButtonMainPageSearchButton);
+        adminLinearLayout = findViewById(R.id.adminLinearLayout);
 
+        imageButtonAdminPanel = findViewById(R.id.imageButtonAdminPanel);
+
+        Log.d("User: ", loggedInUser.getRole());
+        if(loggedInUser.getRole().equals("admin")){
+            imageButtonAdminPanel.setVisibility(View.VISIBLE);
+        }
+        else{
+            imageButtonAdminPanel.setVisibility(View.INVISIBLE);
+        }
+
+        imageButtonMainPageSearchButton = findViewById(R.id.imageButtonMainPageSearchButton);
+        imageButtonAdminPanel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomepageActivity.this, AdminDashboardActivity.class);
+                startActivity(intent);
+            }
+        });
         imageButtonAllRecipes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

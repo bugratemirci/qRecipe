@@ -7,4 +7,12 @@
     tools:context=".UploadPictureActivity"
     android:background="@color/lightgray">
 
+    <Button
+        android:id="@+id/buttonUploadImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="235dp"
+        android:text="Button" />
 </RelativeLayout>

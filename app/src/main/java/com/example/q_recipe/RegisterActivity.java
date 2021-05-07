@@ -13,7 +13,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 public class RegisterActivity extends AppCompatActivity {
     private Button buttonSaveRegister;
-    private EditText textboxNameRegister, textboxEmailRegister, textboxPasswordRegister;
+    private EditText textboxNameRegister, textboxEmailRegister, textboxPasswordRegister, textboxPhoneRegister, textboxAboutMeRegister;
     private PostOperations postOperations;
     private TextView labelRegisterWarning;
     @Override
@@ -25,6 +25,8 @@ public class RegisterActivity extends AppCompatActivity {
         textboxEmailRegister = findViewById(R.id.textboxEmailRegister);
         textboxPasswordRegister = findViewById(R.id.textboxPasswordRegister);
         labelRegisterWarning = findViewById(R.id.labelRegisterWarning);
+        textboxAboutMeRegister = findViewById(R.id.textboxAboutMeRegister);
+        textboxPhoneRegister = findViewById(R.id.textboxPhoneRegister);
 
         String token = FirebaseInstanceId.getInstance().getToken();
         getSupportActionBar().hide();
@@ -33,8 +35,15 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 postOperations = new PostOperations();
-                postOperations.registerOperations(RegisterActivity.this, String.valueOf(textboxNameRegister.getText()), String.valueOf(textboxEmailRegister.getText()), String.valueOf(textboxPasswordRegister.getText()),labelRegisterWarning,token);
-
+                postOperations.registerOperations(
+                        RegisterActivity.this,
+                        String.valueOf(textboxNameRegister.getText()),
+                        String.valueOf(textboxEmailRegister.getText()),
+                        String.valueOf(textboxPasswordRegister.getText()),
+                        labelRegisterWarning,
+                        token,
+                        String.valueOf(textboxPhoneRegister.getText()),
+                        String.valueOf(textboxAboutMeRegister.getText()));
             }
         });
 

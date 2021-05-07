@@ -1,9 +1,18 @@
 package com.example.q_recipe.WebServices;
 
+import android.app.VoiceInteractor;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,11 +33,15 @@ import com.example.q_recipe.ENV.GlobalVariables;
 import com.example.q_recipe.HomepageActivity;
 import com.example.q_recipe.MainPageActivity;
 import com.example.q_recipe.Models.User;
+import com.mikhaellopez.circularimageview.CircularImageView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,7 +49,9 @@ import java.util.List;
 import java.util.Map;
 
 public class PostOperations {
-    public void registerOperations(Context context, String name, String email, String password, TextView labelRegisterWarning, String notification_token) {
+
+
+    public void registerOperations(Context context, String name, String email, String password, TextView labelRegisterWarning, String notification_token, String phone, String about) {
         JSONObject postDataParams = new JSONObject();
         try {
 
@@ -45,6 +60,8 @@ public class PostOperations {
             postDataParams.put("email", email);
             postDataParams.put("role", "user");
             postDataParams.put("notification_token", notification_token);
+            postDataParams.put("phone", phone);
+            postDataParams.put("about", about);
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -102,6 +119,104 @@ public class PostOperations {
         queue.add(postRequest);
     }
 
+    public void updateProfilePicture(Context context, Bitmap bitmap, String access_token, String id, String imgUrl, CircularImageView imageViewProfileImage) {
+
+        String urlUpload = GlobalVariables.API_URL + "/api/users/upload";
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 75, byteArrayOutputStream);
+        byte[] imageBytes = byteArrayOutputStream.toByteArray();
+        final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        JSONObject postDataParams = new JSONObject();
+        try {
+
+            postDataParams.put("profile_image", imageString);
+            postDataParams.put("id", id);
+            postDataParams.put("access_token", access_token);
+            postDataParams.put("role", "user");
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        String data = postDataParams.toString();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, urlUpload, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return data == null ? null : data.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+                    //Log.v("Unsupported Encoding while trying to get the bytes", data);
+                    return null;
+                }
+            }
+        };
+    RequestQueue requestQueue = Volley.newRequestQueue(context);
+    requestQueue.add(stringRequest);
+    }
+
+    public void updateRecipePicture(Context context, Bitmap bitmap, String access_token, String recipeId, String userId) {
+
+        String urlUpload = GlobalVariables.API_URL + "/api/recipes/uploadImage";
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 75, byteArrayOutputStream);
+        byte[] imageBytes = byteArrayOutputStream.toByteArray();
+        final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        JSONObject postDataParams = new JSONObject();
+        try {
+            postDataParams.put("recipe_image", imageString);
+            postDataParams.put("id", userId);
+            postDataParams.put("access_token", access_token);
+            postDataParams.put("recipe_id", recipeId);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        String data = postDataParams.toString();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, urlUpload, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return data == null ? null : data.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+                    //Log.v("Unsupported Encoding while trying to get the bytes", data);
+                    return null;
+                }
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+
 
     public void loginOperations(Context context, String email, String password) {
         JSONObject postDataParams = new JSONObject();
@@ -126,12 +241,6 @@ public class PostOperations {
 
 
                         try {
-                            /*JSONObject jsonObject = new JSONObject(response);
-                            JSONObject jsonObjectData = new JSONObject(jsonObject.getString("data"));
-                            Intent intent = new Intent(context, AddRecipeActivity.class);
-                            intent.putExtra("access_token", "Bearer: " + jsonObject.getString("access_token"));
-                            intent.putExtra("user_id", jsonObjectData.getString("id"));
-                            context.startActivity(intent);*/
                             LoggedInUser loggedInUser = new LoggedInUser();
                             JSONObject jsonObject = new JSONObject(response);
                             JSONObject jsonObjectData = new JSONObject(jsonObject.getString("data"));
@@ -140,6 +249,9 @@ public class PostOperations {
                             loggedInUser.setName(jsonObjectData.getString("name"));
                             loggedInUser.setEmail(jsonObjectData.getString("email"));
                             loggedInUser.setId(jsonObjectData.getString("id"));
+                            loggedInUser.setAbout(jsonObjectData.getString("about"));
+                            loggedInUser.setPhone(jsonObjectData.getString("phone"));
+                            loggedInUser.setRole(jsonObjectData.getString("role"));
 
                             Intent intent = new Intent(context, HomepageActivity.class);
                             intent.putExtra("user", loggedInUser);

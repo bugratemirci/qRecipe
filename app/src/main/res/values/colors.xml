@@ -17,7 +17,7 @@
     <color name="lightgray">#ededed</color>
     <color name="deeppurple">#7c4dff</color>
     <color name="yello">#ffb300</color>
-    <color name="green">#00bfa5</color>
+    <color name="greens">#00bfa5</color>
     <color name="colorAccent">#FF4081</color>
     <color name="darkblue">#23283a</color>
     <color name="testcolorblue">#152b38</color>
@@ -30,4 +30,20 @@
     <color name="blackColor">#000</color>
     <color name="lightOrange">#fdf2df</color>
     <color name="lightDarkOrange">#ebd6ab</color>
+
+    <color name="textSub">#76818a</color>
+    <color name="Tex">#404547</color>
+    <color name="White">#fff</color>
+
+
+    <color name="colordevider">#f1f2f4</color>
+    <color name="colorbutton">#ff5254</color>
+    <color name="iconcolour">#9ba4ab</color>
+    <color name="strok">#e4e5ea</color>
+
+
+    <color name="green">#5ccc78</color>
+    <color name="red">#ea495f</color>
+    <color name="yellow">#f8d64e</color>
+    <color name="light_green">#1bac94</color>
 </resources>

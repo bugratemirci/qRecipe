@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,6 +36,8 @@ public class ChooseMaterialsActivity extends AppCompatActivity {
     private TextView labelChooseMaterialWarningLabel;
     private GetOperations getOperations = new GetOperations();
     private List<Ingredient> ingredientList;
+    private EditText textboxSearchIngredientAddRecipe;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,25 +56,45 @@ public class ChooseMaterialsActivity extends AppCompatActivity {
         listviewRecipeMaterials = findViewById(R.id.listviewRecipeMaterials);
         listviewSelectedRecipeMaterials = findViewById(R.id.listviewSelectedRecipeMaterials);
         labelChooseMaterialWarningLabel = findViewById(R.id.labelChooseMaterialWarningLabel);
+        textboxSearchIngredientAddRecipe = findViewById(R.id.textboxSearchIngredientAddRecipe);
+
+
+        textboxSearchIngredientAddRecipe.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                fillListView(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         selectedIngredients = new ArrayList<>();
-        fillListView();
+        fillListView(null);
 
         listviewRecipeMaterials.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedIngredients.add(String.valueOf(ingredients.toArray()[position]));
-                ingredients.remove(String.valueOf(ingredients.toArray()[position]));
+                selectedIngredients.add(String.valueOf(listviewRecipeMaterials.getItemAtPosition(position)));
+                ingredients.remove(String.valueOf(listviewRecipeMaterials.getItemAtPosition(position)));
                 selectedIngredients.toArray();
-                fillListView();
+
+                fillListView(null);
             }
         });
         listviewSelectedRecipeMaterials.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ingredients.add(String.valueOf(selectedIngredients.toArray()[position]));
-                selectedIngredients.remove(selectedIngredients.toArray()[position]);
-                fillListView();
+                selectedIngredients.remove(String.valueOf(selectedIngredients.toArray()[position]));
+                fillListView(null);
             }
         });
 
@@ -104,10 +129,19 @@ public class ChooseMaterialsActivity extends AppCompatActivity {
         });
     }
 
-    public void fillListView(){
-        ArrayAdapter<String> recipeNamesAdapter = new  ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, ingredients);
-        listviewRecipeMaterials.setAdapter(recipeNamesAdapter);
+    public void fillListView(CharSequence charSequence){
+        if(charSequence == null){
+
+            ArrayAdapter<String> recipeNamesAdapter = new  ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, android.R.id.text1, ingredients);
+            listviewRecipeMaterials.setAdapter(recipeNamesAdapter);
+        }
+        else{
+            ArrayAdapter<String> recipeNamesAdapter = new  ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, android.R.id.text1, ingredients);
+            recipeNamesAdapter.getFilter().filter(charSequence);
+            listviewRecipeMaterials.setAdapter(recipeNamesAdapter);
+        }
         if(selectedIngredients.size() != 0){
             ArrayAdapter<String> selectedRecipeNamesAdapter = new  ArrayAdapter<String>(this,
                     android.R.layout.simple_list_item_1, android.R.id.text1, selectedIngredients);
