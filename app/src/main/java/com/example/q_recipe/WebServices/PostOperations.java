@@ -119,7 +119,7 @@ public class PostOperations {
         queue.add(postRequest);
     }
 
-    public void updateProfilePicture(Context context, Bitmap bitmap, String access_token, String id, String imgUrl, CircularImageView imageViewProfileImage) {
+    public void updateProfilePicture(Context context, Bitmap bitmap, String access_token, String id, LoggedInUser loggedInUser) {
 
         String urlUpload = GlobalVariables.API_URL + "/api/users/upload";
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -128,13 +128,14 @@ public class PostOperations {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 75, byteArrayOutputStream);
         byte[] imageBytes = byteArrayOutputStream.toByteArray();
         final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        loggedInUser.setProfile_image(imageString);
+
         JSONObject postDataParams = new JSONObject();
         try {
 
             postDataParams.put("profile_image", imageString);
             postDataParams.put("id", id);
             postDataParams.put("access_token", access_token);
-            postDataParams.put("role", "user");
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -252,6 +253,7 @@ public class PostOperations {
                             loggedInUser.setAbout(jsonObjectData.getString("about"));
                             loggedInUser.setPhone(jsonObjectData.getString("phone"));
                             loggedInUser.setRole(jsonObjectData.getString("role"));
+                            loggedInUser.setProfile_image(jsonObjectData.getString("profile_image_string"));
 
                             Intent intent = new Intent(context, HomepageActivity.class);
                             intent.putExtra("user", loggedInUser);

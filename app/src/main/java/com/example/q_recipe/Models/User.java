@@ -34,7 +34,7 @@ public class User implements Serializable {
     @Expose
     private String notificationToken;
 
-    @SerializedName("profile_image")
+    @SerializedName("profile_image_string")
     @Expose
     private String profile_image;
 

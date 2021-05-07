@@ -1,5 +1,6 @@
 package com.example.q_recipe;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -29,6 +31,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Base64;
 
 public class UserProfileActivity extends AppCompatActivity {
     private TextView textViewProfileName, textViewProfileEmail, textViewProfileAbout, textViewProfilePhone;
@@ -40,6 +43,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private Bitmap bitmap;
     private User user = null;
     private GetOperations getOperations = new GetOperations();
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,9 +62,12 @@ public class UserProfileActivity extends AppCompatActivity {
         buttonProfileEdit = findViewById(R.id.buttonProfileEdit);
         imageViewProfileImage = findViewById(R.id.imageViewProfileImage);
 
+        String originalInput = loggedInUser.getProfile_image();
+        originalInput = originalInput.replace("\n","");
+        byte[] result = Base64.getDecoder().decode(originalInput);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(result, 0, result.length);
 
-
-        Picasso.get().load(GlobalVariables.API_URL + "/uploads/profile_images/"+ loggedInUser.getId() +"_profile_photo.jpeg").into(imageViewProfileImage);
+        imageViewProfileImage.setImageBitmap(bitmap);
 
 
 
@@ -109,9 +116,9 @@ public class UserProfileActivity extends AppCompatActivity {
                         Bitmap.createScaledBitmap(bitmap, 500, 500, false),
                         loggedInUser.getAccess_token(),
                         loggedInUser.getId(),
-                        picturePath,
-                        imageViewProfileImage);
+                        loggedInUser);
                 imageViewProfileImage.setImageDrawable(new BitmapDrawable(getApplicationContext().getResources(), bitmap));
+
 
 
             } catch (IOException e) {
@@ -121,4 +128,11 @@ public class UserProfileActivity extends AppCompatActivity {
 
         }
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, HomepageActivity.class);
+        intent.putExtra("user", loggedInUser);
+        startActivity(intent);
+    }
+
 }
