@@ -1,45 +1,57 @@
 package com.example.q_recipe;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.ClipData;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.q_recipe.WebServices.PostOperations;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
-public class UploadPictureActivity extends AppCompatActivity {
-    private Button buttonUploadImage;
-    private static int RESULT_LOAD_IMAGE = 1;
-    private PostOperations postOperations = new PostOperations();
+public class DenemeActivity extends AppCompatActivity {
+    private Button button;
     private Bitmap bitmap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upload_picture);
-        buttonUploadImage = findViewById(R.id.buttonUploadImage);
+        setContentView(R.layout.activity_deneme);
+        button = findViewById(R.id.button);
 
-        buttonUploadImage.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(
                         Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(i, RESULT_LOAD_IMAGE);
+                startActivityForResult(i, 1);
             }
         });
+
     }
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+        if (requestCode == 1 && resultCode == RESULT_OK) {
             Uri selectedImage = data.getData();
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
             Cursor cursor = getContentResolver().query(selectedImage,
@@ -50,22 +62,16 @@ public class UploadPictureActivity extends AppCompatActivity {
             cursor.close();
             try {
 
-
+                PostOperations postOperations = new PostOperations();
 
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse("file:///"+picturePath));
-                postOperations.updateRecipePicture(UploadPictureActivity.this,
+                postOperations.updateRecipeImages(DenemeActivity.this,
                         Bitmap.createScaledBitmap(bitmap, 500, 500, false),
-                        "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOTNjMTRmZDE1MDM3MGFjOGQzYjdkYyIsIm5hbWUiOiJSZWNlcCBQb2xhdCIsImlhdCI6MTYyMDM4NzcwMywiZXhwIjoxNjIwMzkxMzAzfQ.TvSTGu3PUvjHVDSp2VN1Om4JL5Qc7IVLRWJXNKvPTUE",
-                        "6093c4e9d150370ac8d3b7dd",
-                        "6093c14fd150370ac8d3b7dc");
-
-
+                        "6096aec84ba28207140159f8");
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
         }
     }
 }

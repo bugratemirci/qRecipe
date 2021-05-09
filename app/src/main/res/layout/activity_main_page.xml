@@ -14,7 +14,9 @@
         android:ems="10"
         android:gravity="center"
         android:hint="Arama"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:drawableLeft="@drawable/search"
+        />
 
     <ListView
         android:id="@+id/listviewWithoutLoginRecipes1"

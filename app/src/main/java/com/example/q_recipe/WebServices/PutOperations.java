@@ -29,16 +29,10 @@ public class PutOperations {
         try {
             editInformation.put("name", name);
             editInformation.put("email", email);
-
-
             postDataParams.put("id", id);
             postDataParams.put("editInformation", editInformation);
             postDataParams.put("access_token", access_token);
             postDataParams.put("password", password);
-
-
-
-
         } catch (Exception exception) {
             exception.printStackTrace();
         }

@@ -28,6 +28,8 @@ public class HomepageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_homepage);
         getSupportActionBar().hide();
 
+
+
         Intent intent = getIntent();
         LoggedInUser loggedInUser = (LoggedInUser) intent.getSerializableExtra("user");
 

@@ -108,9 +108,6 @@ public class UserProfileActivity extends AppCompatActivity {
             String picturePath = cursor.getString(columnIndex);
             cursor.close();
             try {
-
-
-
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse("file:///"+picturePath));
                 postOperations.updateProfilePicture(UserProfileActivity.this,
                         Bitmap.createScaledBitmap(bitmap, 500, 500, false),
@@ -118,9 +115,6 @@ public class UserProfileActivity extends AppCompatActivity {
                         loggedInUser.getId(),
                         loggedInUser);
                 imageViewProfileImage.setImageDrawable(new BitmapDrawable(getApplicationContext().getResources(), bitmap));
-
-
-
             } catch (IOException e) {
                 e.printStackTrace();
             }

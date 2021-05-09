@@ -1,6 +1,8 @@
 package com.example.q_recipe.Helpers;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +14,16 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.q_recipe.R;
 
+import java.util.Base64;
+
 public class SliderAdapter extends PagerAdapter {
-    private int[] imageResources = {
-            R.drawable.hunkarbegendi1,
-            R.drawable.hunkarbegendi2,
-            R.drawable.hunkarbegendi3,
-            R.drawable.hunkarbegendi4
-    };
+    private Bitmap[] imageResources;
+
     private Context context;
     private LayoutInflater layoutInflater;
-    public SliderAdapter(Context context) {
+    public SliderAdapter(Context context, Bitmap[] imageResources) {
         this.context = context;
+        this.imageResources = imageResources;
     }
 
     @Override
@@ -42,7 +43,7 @@ public class SliderAdapter extends PagerAdapter {
         View item_view = layoutInflater.inflate(R.layout.recipeviewpager, container, false);
 
         ImageView imageView = item_view.findViewById(R.id.slider_page);
-        imageView.setImageResource(imageResources[position]);
+        imageView.setImageBitmap(this.imageResources[position]);
         container.addView(item_view);
 
         return item_view;

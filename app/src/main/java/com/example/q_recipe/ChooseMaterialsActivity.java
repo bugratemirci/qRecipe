@@ -36,7 +36,7 @@ public class ChooseMaterialsActivity extends AppCompatActivity {
     private TextView labelChooseMaterialWarningLabel;
     private GetOperations getOperations = new GetOperations();
     private List<Ingredient> ingredientList;
-    private EditText textboxSearchIngredientAddRecipe;
+    private EditText textboxSearchIngredientAddRecipe, textboxNewRecipeDescription;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +48,16 @@ public class ChooseMaterialsActivity extends AppCompatActivity {
         for(Ingredient ingredient: ingredientList) {
             ingredients.add(ingredient.getName());
         }
+
         Intent intent = getIntent();
         loggedInUser = (LoggedInUser) intent.getSerializableExtra("user");
         recipeDetails = (RecipeDetails) intent.getSerializableExtra("recipe");
-
         buttonUploadAPicture = findViewById(R.id.buttonUploadAPicture);
         listviewRecipeMaterials = findViewById(R.id.listviewRecipeMaterials);
         listviewSelectedRecipeMaterials = findViewById(R.id.listviewSelectedRecipeMaterials);
         labelChooseMaterialWarningLabel = findViewById(R.id.labelChooseMaterialWarningLabel);
         textboxSearchIngredientAddRecipe = findViewById(R.id.textboxSearchIngredientAddRecipe);
-
+        textboxNewRecipeDescription = findViewById(R.id.textboxNewRecipeDescription);
 
         textboxSearchIngredientAddRecipe.addTextChangedListener(new TextWatcher() {
             @Override
@@ -75,10 +75,8 @@ public class ChooseMaterialsActivity extends AppCompatActivity {
 
             }
         });
-
         selectedIngredients = new ArrayList<>();
         fillListView(null);
-
         listviewRecipeMaterials.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -97,21 +95,20 @@ public class ChooseMaterialsActivity extends AppCompatActivity {
                 fillListView(null);
             }
         });
-
         buttonUploadAPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PostOperations postOperations = new PostOperations();
                 postOperations.addRecipe(ChooseMaterialsActivity.this,
                         recipeDetails.getRecipeName(),
-                        recipeDetails.getRecipeDescription(),
+                        String.valueOf(textboxNewRecipeDescription.getText()),
                         selectedIngredients,
                         labelChooseMaterialWarningLabel,
                         loggedInUser.getAccess_token(),
                         loggedInUser.getId(),
-                        loggedInUser
+                        loggedInUser,
+                        recipeDetails.getRecipeImage()
                 );
-
                 GetOperations getOperations = new GetOperations();
                 List<User> userList = getOperations.getUsers();
 
@@ -122,9 +119,6 @@ public class ChooseMaterialsActivity extends AppCompatActivity {
                             userList.get(i).getNotificationToken(),
                             "AAAAWHco7YE:APA91bGt9bFWiRSsL1DeV8NAf7B5-PiqpmxeWIoBzXUDOPS5x46VhgWoCPk4VlvOEQa6DKr1tj5_LgrptukHbIo1OYpf9Ho5LtlkLsz7kTFte6u9ytpSRVvy9xGgve-MY6q3f3Q-V1mw");
                 }
-
-
-
             }
         });
     }

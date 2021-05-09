@@ -10,7 +10,7 @@
     <ListView
         android:id="@+id/listviewRecipeMaterials"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="140dp"
         android:layout_below="@+id/textView5"
         android:layout_marginTop="9dp">
 
@@ -19,7 +19,7 @@
     <ListView
         android:id="@+id/listviewSelectedRecipeMaterials"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="140dp"
         android:layout_below="@+id/textView6"
         android:layout_marginTop="10dp" />
 
@@ -27,9 +27,9 @@
         android:id="@+id/buttonUploadAPicture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/listviewSelectedRecipeMaterials"
+        android:layout_below="@+id/textboxNewRecipeDescription"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="23dp"
         android:background="@drawable/buttonstyle"
         android:text="İlerle"
         android:textColor="#000000"
@@ -63,10 +63,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/buttonUploadAPicture"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="23dp" />
+        android:layout_marginTop="12dp" />
     <EditText
         android:id="@+id/textboxSearchIngredientAddRecipe"
         android:layout_width="wrap_content"
@@ -91,4 +89,29 @@
         android:layout_marginLeft="39dp"
         android:layout_marginTop="30dp"
         android:text="Arama" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listviewSelectedRecipeMaterials"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="44dp"
+        android:text="Açıklama:" />
+
+    <EditText
+        android:id="@+id/textboxNewRecipeDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listviewSelectedRecipeMaterials"
+        android:layout_marginStart="45dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="34dp"
+        android:layout_toEndOf="@+id/textView4"
+        android:layout_toRightOf="@+id/textView4"
+        android:ems="10"
+        android:inputType="textPersonName" />
 </RelativeLayout>

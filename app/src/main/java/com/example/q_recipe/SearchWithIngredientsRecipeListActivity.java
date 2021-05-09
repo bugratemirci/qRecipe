@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.q_recipe.Business.RecipeDetails;
 import com.example.q_recipe.WebServices.PostOperations;
 
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ public class SearchWithIngredientsRecipeListActivity extends AppCompatActivity {
         Intent intent = getIntent();
         ingredientsList = intent.getStringArrayListExtra("ingredientsList");
         postOperations.getRecipeByIngredients(SearchWithIngredientsRecipeListActivity.this, ingredientsList, listviewRecipeListByIngredients);
+
 
 
     }

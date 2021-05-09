@@ -6,15 +6,12 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.example.q_recipe.WebServices.GetOperations;
 import com.example.q_recipe.WebServices.PostOperations;
-import com.google.firebase.iid.FirebaseInstanceId;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private PostOperations postOperations = new PostOperations();
     private EditText textboxEmailLogin, textboxPasswordLogin;
     private TextView  textViewRegister;
+
 
     private GetOperations getOperations = new GetOperations();
     @Override
@@ -33,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         getSupportActionBar().hide();
+
 
         buttonLogin = findViewById(R.id.buttonLogin);
         buttonContinueWithoutLogin = findViewById(R.id.buttonContinueWithoutLogin);
@@ -53,7 +52,9 @@ public class MainActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 postOperations.loginOperations(MainActivity.this,String.valueOf(textboxEmailLogin.getText()), String.valueOf(textboxPasswordLogin.getText()));
+
             }
         });
         buttonContinueWithoutLogin.setOnClickListener(new View.OnClickListener() {

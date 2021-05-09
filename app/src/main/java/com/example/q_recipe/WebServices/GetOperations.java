@@ -202,6 +202,33 @@ public class GetOperations {
             return user;
         }
     }
+    public Recipe getRecipe(String id){
+        Recipe recipe = null;
+        String url = GlobalVariables.API_URL + "/api/recipes/" + id;
+        try{
+            // + Json verisi çekiliyor.
+            jsonData = GetJsonData(url);
+            // -
+
+            // + Gelen veri liste şeklinde olacağı için
+            // Modelimizin Liste tipinde olacağını belirtiyoruz.
+            Type recipeType = new TypeToken<Recipe>(){}.getType();
+            // -
+
+            // + Gson ile Json verisi okunur ve Listeye alınır.
+            Gson gson = new Gson();
+            recipe  = gson.fromJson(jsonData, recipeType);
+            // -
+
+
+        }
+        catch (Exception exception){
+            exception.printStackTrace();
+        }
+        finally {
+            return recipe;
+        }
+    }
 
     public void logOut(Context context){
 

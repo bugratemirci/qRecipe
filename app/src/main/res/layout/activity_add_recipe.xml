@@ -19,18 +19,6 @@
         android:layout_marginTop="83dp"
         android:text="Tarif Adı:" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewUserOperations"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="57dp"
-        android:text="Açıklama:" />
-
     <EditText
         android:id="@+id/textboxNewRecipeName"
         android:layout_width="wrap_content"
@@ -44,32 +32,43 @@
         android:ems="10"
         android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/textboxNewRecipeDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="78dp"
-        android:layout_below="@+id/textboxNewRecipeName"
-        android:layout_marginStart="69dp"
-        android:layout_marginLeft="69dp"
-        android:layout_marginTop="15dp"
-        android:layout_toEndOf="@+id/textViewUserOperations"
-        android:layout_toRightOf="@+id/textViewUserOperations"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
     <Button
         android:id="@+id/buttonNewRecipeChooseMaterials"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textboxNewRecipeDescription"
+        android:layout_below="@+id/uploadImageButtonAddRecipe"
         android:layout_marginStart="69dp"
         android:layout_marginLeft="69dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="82dp"
         android:layout_toEndOf="@+id/textViewUserOperations"
         android:layout_toRightOf="@+id/textViewUserOperations"
         android:background="@drawable/buttonstyle"
         android:text="İleri"
         android:textColor="@color/buttonTextColors"
         app:backgroundTint="@color/buttonColors" />
+
+    <ImageView
+        android:id="@+id/uploadImageButtonAddRecipe"
+        android:layout_width="207dp"
+        android:layout_height="208dp"
+        android:layout_below="@+id/textboxNewRecipeName"
+        android:layout_marginStart="73dp"
+        android:layout_marginLeft="73dp"
+        android:layout_marginTop="79dp"
+        android:layout_toEndOf="@+id/textViewUserOperations"
+        android:layout_toRightOf="@+id/textViewUserOperations"
+        android:src="@drawable/uploadaimage" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewUserOperations"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="75dp"
+        android:text="Resim seç:" />
 
 </RelativeLayout>

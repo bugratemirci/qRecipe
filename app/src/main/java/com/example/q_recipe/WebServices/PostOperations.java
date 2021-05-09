@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
@@ -16,6 +17,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -30,9 +36,17 @@ import com.android.volley.toolbox.Volley;
 import com.example.q_recipe.AddRecipeActivity;
 import com.example.q_recipe.Business.LoggedInUser;
 import com.example.q_recipe.ENV.GlobalVariables;
+import com.example.q_recipe.Helpers.SliderAdapter;
 import com.example.q_recipe.HomepageActivity;
 import com.example.q_recipe.MainPageActivity;
+import com.example.q_recipe.Models.Recipe;
 import com.example.q_recipe.Models.User;
+import com.example.q_recipe.R;
+import com.example.q_recipe.RecipeDetailActivity;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 
@@ -43,13 +57,19 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.prefs.PreferenceChangeEvent;
 
 public class PostOperations {
 
+    private Gson gson = new Gson();
+    private String[] ingredientsList;
+    private String recipeImage;
 
     public void registerOperations(Context context, String name, String email, String password, TextView labelRegisterWarning, String notification_token, String phone, String about) {
         JSONObject postDataParams = new JSONObject();
@@ -71,8 +91,6 @@ public class PostOperations {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // response
-                        Log.d("Response", response);
                         labelRegisterWarning.setText("Kayıt başarılı");
                     }
                 },
@@ -109,7 +127,7 @@ public class PostOperations {
                 try {
                     return data == null ? null : data.getBytes("utf-8");
                 } catch (UnsupportedEncodingException uee) {
-                    //Log.v("Unsupported Encoding while trying to get the bytes", data);
+
                     return null;
                 }
             }
@@ -161,7 +179,7 @@ public class PostOperations {
                 try {
                     return data == null ? null : data.getBytes("utf-8");
                 } catch (UnsupportedEncodingException uee) {
-                    //Log.v("Unsupported Encoding while trying to get the bytes", data);
+
                     return null;
                 }
             }
@@ -169,6 +187,134 @@ public class PostOperations {
     RequestQueue requestQueue = Volley.newRequestQueue(context);
     requestQueue.add(stringRequest);
     }
+
+    public void updateRecipeImages(Context context, Bitmap bitmap, String id) {
+
+        String urlUpload = GlobalVariables.API_URL + "/api/recipes/createBase64String";
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 75, byteArrayOutputStream);
+        Bitmap.createScaledBitmap(bitmap, 250, 250, false);
+        byte[] imageBytes = byteArrayOutputStream.toByteArray();
+        final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
+
+
+
+        JSONObject postDataParams = new JSONObject();
+        try {
+
+            postDataParams.put("base64_image", imageString);
+            postDataParams.put("id", id);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        String data = postDataParams.toString();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, urlUpload, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return data == null ? null : data.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+
+                    return null;
+                }
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+    public void getRecipeWithId(Context context, String id, TextView name, TextView description, ListView listView, ImageView viewPagerDetailRecipe) {
+        Recipe recipe = new Recipe();
+        String urlUpload = GlobalVariables.API_URL + "/api/recipes/getRecipeWithId";
+        JSONObject postDataParams = new JSONObject();
+        try {
+
+            postDataParams.put("id", id);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        String data = postDataParams.toString();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, urlUpload, new Response.Listener<String>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onResponse(String response) {
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response);
+                    ingredientsList = new String[jsonObject.getJSONArray("ingredients").length()];
+                    recipeImage = jsonObject.getString("recipe_image");
+                    recipe.setName(jsonObject.getString("name"));
+                    recipe.setDescription(jsonObject.getString("description"));
+                    for(int i = 0; i<jsonObject.getJSONArray("ingredients").length() ; i++){
+                        ingredientsList[i] = jsonObject.getJSONArray("ingredients").get(i).toString();
+                    }
+
+                    recipe.setRecipeImage(recipeImage);
+                    ArrayAdapter<String> recipeNamesAdapter = new  ArrayAdapter<String>(((AppCompatActivity)context),
+                            android.R.layout.simple_list_item_1, android.R.id.text1, ingredientsList);
+
+                    listView.setAdapter(recipeNamesAdapter);
+
+                    description.setText(recipe.getDescription());
+                    name.setText(recipe.getName());
+
+                    String originalInput = recipe.getRecipeImage();
+                    originalInput = originalInput.replace("\n","");
+                    byte[] result = java.util.Base64.getDecoder().decode(originalInput);
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(result, 0, result.length);
+
+                    viewPagerDetailRecipe.setImageBitmap(bitmap);
+
+
+                }
+                catch (Exception exception){
+                    exception.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return data == null ? null : data.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+
+                    return null;
+                }
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+
 
     public void updateRecipePicture(Context context, Bitmap bitmap, String access_token, String recipeId, String userId) {
 
@@ -236,11 +382,6 @@ public class PostOperations {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // response
-                        Log.d("Response", response);
-
-
-
                         try {
                             LoggedInUser loggedInUser = new LoggedInUser();
                             JSONObject jsonObject = new JSONObject(response);
@@ -255,10 +396,11 @@ public class PostOperations {
                             loggedInUser.setRole(jsonObjectData.getString("role"));
                             loggedInUser.setProfile_image(jsonObjectData.getString("profile_image_string"));
 
+
                             Intent intent = new Intent(context, HomepageActivity.class);
                             intent.putExtra("user", loggedInUser);
                             context.startActivity(intent);
-
+                            ((AppCompatActivity)context).overridePendingTransition(R.anim.fade, R.anim.fade_out);
 
                         }
                         catch (Exception exception){
@@ -310,11 +452,13 @@ public class PostOperations {
         queue.add(postRequest);
     }
 
-    public void addRecipe(Context context, String name, String description, ArrayList<String> ingredients, TextView labelWarningAddRecipe, String access_token, String id, LoggedInUser loggedInUser){
+    public void addRecipe(Context context, String name, String description, ArrayList<String> ingredients, TextView labelWarningAddRecipe, String access_token, String id, LoggedInUser loggedInUser, String imageString){
         JSONObject postDataParams = new JSONObject();
         JSONArray ingredientList = new JSONArray();
         GetOperations getOperations = new GetOperations();
         User user = getOperations.getUser(id);
+
+
 
         for(String ingredient: ingredients){
             ingredientList.put(ingredient);
@@ -327,6 +471,7 @@ public class PostOperations {
             postDataParams.put("ingredients", ingredientList);
             postDataParams.put("access_token", access_token);
             postDataParams.put("id", id);
+            postDataParams.put("base64_image", imageString);
 
 
 
@@ -340,7 +485,7 @@ public class PostOperations {
                     @Override
                     public void onResponse(String response) {
                         // response
-                        Log.d("Response", response);
+
                         labelWarningAddRecipe.setText("Kayıt başarılı");
 
                         Intent intent = new Intent(context, MainPageActivity.class);
@@ -412,7 +557,7 @@ public class PostOperations {
                     public void onResponse(String response) {
                         String[] ids;
 
-                        Log.d("Response", response);
+
                         try {
                             JSONArray jsonArray = new JSONArray(response);
                             ids = new String[jsonArray.length()];
@@ -424,14 +569,12 @@ public class PostOperations {
                             ArrayAdapter<String> recipeNamesAdapter = new  ArrayAdapter<String>(context,
                                     android.R.layout.simple_list_item_1, android.R.id.text1, ids);
                             listViewSearch.setAdapter(recipeNamesAdapter);
+
+
                         }
                         catch (Exception exception){
                             exception.printStackTrace();
                         }
-
-
-
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -479,15 +622,11 @@ public class PostOperations {
     public void pushNotification(Context context, String body, String title, String to, String token){
         JSONObject postDataParams = new JSONObject();
         JSONObject postNotification = new JSONObject();
-
-
         try {
             postNotification.put("body", body);
             postNotification.put("title", title);
             postDataParams.put("to",to);
             postDataParams.put("notification", postNotification);
-
-
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -498,9 +637,6 @@ public class PostOperations {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // response
-                        Log.d("Response", response);
-
 
                     }
                 },

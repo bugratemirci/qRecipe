@@ -18,9 +18,22 @@ public class Recipe implements Serializable {
     @SerializedName("comments")
     @Expose
     private String[] comments;
+
     @SerializedName("ingredients")
     @Expose
     private String[] ingredients;
+
+    @SerializedName("recipe_image")
+    @Expose
+    private String recipeImage;
+
+    public String getRecipeImage() {
+        return recipeImage;
+    }
+
+    public void setRecipeImage(String recipeImage) {
+        this.recipeImage = recipeImage;
+    }
 
     public String[] getIngredients() {
         return ingredients;

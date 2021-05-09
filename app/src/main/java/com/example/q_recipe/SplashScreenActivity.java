@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 public class SplashScreenActivity extends AppCompatActivity {
 
     private LinearLayout linearLayout1;
-    private Animation uptodown,downtoup;
+    private Animation uptodown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
