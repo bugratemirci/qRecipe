@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -52,7 +53,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         recipeIngredientsDetailPage = findViewById(R.id.recipeIngredientsDetailPage);
         viewPagerDetailRecipe = findViewById(R.id.viewPagerDetailRecipe);
 
-
+        recipeDescriptionDetailPage.setMovementMethod(new ScrollingMovementMethod());
         Intent intent = getIntent();
         recipeId = intent.getStringExtra("selectedRecipe");
 
@@ -97,6 +98,10 @@ public class RecipeDetailActivity extends AppCompatActivity {
             }
         }
     }
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.ltor, R.anim.fade_out);
+    }
 
 }

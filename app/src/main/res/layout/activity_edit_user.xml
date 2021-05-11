@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightgray"
-    tools:context=".RegisterActivity">
+    tools:context=".EditUserActivity">
 
     <TextView
         android:id="@+id/textView7"
@@ -68,6 +67,7 @@
         android:layout_toEndOf="@+id/textView7"
         android:layout_toRightOf="@+id/textView7"
         android:ems="10"
+        android:hint="******"
         android:inputType="textPassword" />
 
     <TextView
@@ -90,7 +90,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="42dp"
         android:background="@drawable/buttonstyle"
-        android:text="Kayıt Ol"
+        android:text="Kaydet"
         android:textColor="@color/buttonTextColors"
         app:backgroundTint="@color/buttonColors" />
 

@@ -16,7 +16,7 @@ import com.example.q_recipe.WebServices.PutOperations;
 import org.w3c.dom.Text;
 
 public class ProfileEditActivity extends AppCompatActivity {
-    private EditText textboxProfileEditName, textboxProfileEditEmail, textboxProfileEditPassword;
+    private EditText textboxProfileEditName, textboxProfileEditEmail, textboxProfileEditPassword, textboxAboutMeProfileEdit;
     private Button buttonProfileEditSave;
     private TextView labelEditProfileWarning;
 
@@ -34,10 +34,15 @@ public class ProfileEditActivity extends AppCompatActivity {
         textboxProfileEditPassword = findViewById(R.id.textboxProfileEditPassword);
         buttonProfileEditSave = findViewById(R.id.buttonProfileEditSave);
         labelEditProfileWarning = findViewById(R.id.labelEditProfileWarning);
+        textboxAboutMeProfileEdit = findViewById(R.id.textboxAboutMeProfileEdit);
+
 
         Intent intent = getIntent();
         user = (User) intent.getSerializableExtra("user");
         access_token = intent.getStringExtra("user_access_token");
+        textboxProfileEditEmail.setText(user.getEmail());
+        textboxAboutMeProfileEdit.setText(user.getAbout());
+        textboxProfileEditName.setText(user.getName());
 
         buttonProfileEditSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,8 +54,14 @@ public class ProfileEditActivity extends AppCompatActivity {
                         String.valueOf(textboxProfileEditEmail.getText()),
                         String.valueOf(textboxProfileEditPassword.getText()),
                         labelEditProfileWarning,
-                        access_token);
+                        access_token,
+                        String.valueOf(textboxAboutMeProfileEdit.getText()));
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.ltor, R.anim.fade_out);
     }
 }

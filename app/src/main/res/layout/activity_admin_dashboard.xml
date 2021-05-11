@@ -36,13 +36,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="fill"
-            android:layout_columnWeight="0.5"
+            android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             android:layout_row="0"
             android:layout_column="0"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true"
+            android:clickable="true"
+            android:id="@+id/adminDashboardUserOperationsButton">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,7 +73,9 @@
             android:layout_column="1"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true"
+            android:clickable="true"
+            android:id="@+id/adminDashboardRecipeOperationsButton">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,7 +89,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tarif işlemleri"
+                    android:text="Tarif Sil"
                     android:textSize="16sp"
                     android:textColor="@color/black"/>
             </LinearLayout>
@@ -100,7 +104,9 @@
             android:layout_column="0"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true"
+            android:clickable="true"
+            android:id="@+id/adminPanelAddIngredientButton">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -129,7 +135,9 @@
             android:layout_column="1"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true"
+            android:clickable="true"
+            >
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -139,11 +147,11 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_person_72"/>
+                    android:src="@drawable/ic_baseline_ads_click_24"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Eklenebilir"
+                    android:text="Belki reklam alırız"
                     android:textSize="16sp"
                     android:textColor="@color/black"/>
             </LinearLayout>

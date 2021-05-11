@@ -50,12 +50,13 @@ public class MainPageActivity extends AppCompatActivity {
         listviewWithoutLoginRecipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                RecipeDetails recipeDetails = new RecipeDetails();
+
                 Intent intentDetail = new Intent(MainPageActivity.this, RecipeDetailActivity.class);
 
                 intentDetail.putExtra("selectedRecipe", ids[position]);
 
                 startActivity(intentDetail);
+                overridePendingTransition(R.anim.fade, R.anim.fade_out);
             }
         });
 
@@ -133,5 +134,7 @@ public class MainPageActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HomepageActivity.class);
         intent.putExtra("user", loggedInUser);
         startActivity(intent);
+        overridePendingTransition(R.anim.ltor, R.anim.fade_out);
     }
+
 }

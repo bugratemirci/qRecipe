@@ -1,27 +1,18 @@
 package com.example.q_recipe.WebServices;
 
-import android.app.VoiceInteractor;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Build;
-import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -33,37 +24,26 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.q_recipe.AddRecipeActivity;
 import com.example.q_recipe.Business.LoggedInUser;
+import com.example.q_recipe.Business.SearchRecipe;
 import com.example.q_recipe.ENV.GlobalVariables;
-import com.example.q_recipe.Helpers.SliderAdapter;
 import com.example.q_recipe.HomepageActivity;
 import com.example.q_recipe.MainPageActivity;
 import com.example.q_recipe.Models.Recipe;
 import com.example.q_recipe.Models.User;
 import com.example.q_recipe.R;
-import com.example.q_recipe.RecipeDetailActivity;
+import com.example.q_recipe.SearchWithIngredientsRecipeListActivity;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-import com.mikhaellopez.circularimageview.CircularImageView;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.prefs.PreferenceChangeEvent;
 
 public class PostOperations {
 
@@ -92,6 +72,7 @@ public class PostOperations {
                     @Override
                     public void onResponse(String response) {
                         labelRegisterWarning.setText("Kayıt başarılı");
+                        ((AppCompatActivity)context).finish();
                     }
                 },
                 new Response.ErrorListener() {
@@ -113,6 +94,66 @@ public class PostOperations {
                                 e2.printStackTrace();
                             }
                             labelRegisterWarning.setText("Kayıt başarısız");
+                        }
+                    }
+                }
+        ) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return data == null ? null : data.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+
+                    return null;
+                }
+            }
+
+        };
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(postRequest);
+    }
+    public void addIngredient(Context context, String name) {
+        JSONObject postDataParams = new JSONObject();
+        try {
+
+            postDataParams.put("ingredients_name", name);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        String data = postDataParams.toString();
+        String url = GlobalVariables.API_URL + "/api/ingredients/addIngredients";
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        ((AppCompatActivity)context).finish();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // As of f605da3 the following should work
+                        NetworkResponse response = error.networkResponse;
+                        if (error instanceof ServerError && response != null) {
+                            try {
+                                String res = new String(response.data,
+                                        HttpHeaderParser.parseCharset((response).headers, "utf-8"));
+                                // Now you can use any deserializer to make sense of data
+                                JSONObject obj = new JSONObject(res);
+                            } catch (UnsupportedEncodingException e1) {
+                                // Couldn't properly decode data to string
+                                e1.printStackTrace();
+                            } catch (JSONException e2) {
+                                // returned data is not JSONObject?
+                                e2.printStackTrace();
+                            }
+
                         }
                     }
                 }
@@ -280,8 +321,7 @@ public class PostOperations {
                     originalInput = originalInput.replace("\n","");
                     byte[] result = java.util.Base64.getDecoder().decode(originalInput);
                     Bitmap bitmap = BitmapFactory.decodeByteArray(result, 0, result.length);
-
-                    viewPagerDetailRecipe.setImageBitmap(bitmap);
+                    viewPagerDetailRecipe.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 250, 250, false));
 
 
                 }
@@ -491,7 +531,7 @@ public class PostOperations {
                         Intent intent = new Intent(context, MainPageActivity.class);
                         intent.putExtra("user", loggedInUser);
                         context.startActivity(intent);
-
+                        ((AppCompatActivity)context).overridePendingTransition(R.anim.fade, R.anim.fade_out);
                     }
                 },
                 new Response.ErrorListener() {
@@ -538,7 +578,7 @@ public class PostOperations {
         queue.add(postRequest);
     }
 
-    public void getRecipeByIngredients(Context context, ArrayList<String> ingredientsSlug, ListView listViewSearch){
+    public void getRecipeByIngredients(Context context, ArrayList<String> ingredientsSlug, ListView listViewSearch, SearchRecipe searchRecipe){
         JSONObject postDataParams = new JSONObject();
         JSONArray jsonArray = new JSONArray();
         for(String ingredients: ingredientsSlug){
@@ -549,27 +589,30 @@ public class PostOperations {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+
         String data = postDataParams.toString();
         String url = GlobalVariables.API_URL + "/api/recipes/getRecipeByIngredient";
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        String[] names;
                         String[] ids;
-
-
                         try {
                             JSONArray jsonArray = new JSONArray(response);
+                            names = new String[jsonArray.length()];
                             ids = new String[jsonArray.length()];
+
                             for(int i = 0; i < jsonArray.length(); i++){
-                                ids[i] = jsonArray.getJSONObject(i).getString("name");
+                                names[i] = jsonArray.getJSONObject(i).getString("name");
+                                ids[i] = jsonArray.getJSONObject(i).getString("_id");
                             }
 
-
                             ArrayAdapter<String> recipeNamesAdapter = new  ArrayAdapter<String>(context,
-                                    android.R.layout.simple_list_item_1, android.R.id.text1, ids);
+                                    android.R.layout.simple_list_item_1, android.R.id.text1, names);
                             listViewSearch.setAdapter(recipeNamesAdapter);
 
+                            searchRecipe.setIngredients(ids);
 
                         }
                         catch (Exception exception){

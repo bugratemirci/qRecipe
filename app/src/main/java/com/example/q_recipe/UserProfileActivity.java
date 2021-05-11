@@ -127,6 +127,7 @@ public class UserProfileActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HomepageActivity.class);
         intent.putExtra("user", loggedInUser);
         startActivity(intent);
+        overridePendingTransition(R.anim.ltor, R.anim.fade_out);
     }
 
 }

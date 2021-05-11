@@ -56,6 +56,7 @@ public class AddRecipeActivity extends AppCompatActivity {
                 intentChooseMaterials.putExtra("recipe", recipeDetails);
 
                 startActivity(intentChooseMaterials);
+                overridePendingTransition(R.anim.fade, R.anim.fade_out);
             }
         });
         uploadImageButtonAddRecipe.setOnClickListener(new View.OnClickListener() {
@@ -64,12 +65,9 @@ public class AddRecipeActivity extends AppCompatActivity {
                 Intent i = new Intent(
                         Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(i, 1);
+                overridePendingTransition(R.anim.fade, R.anim.fade_out);
             }
         });
-
-
-
-
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -99,5 +97,10 @@ public class AddRecipeActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.ltor, R.anim.fade_out);
     }
 }

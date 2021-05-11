@@ -54,6 +54,7 @@ public class HomepageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomepageActivity.this, AdminDashboardActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade, R.anim.fade_out);
             }
         });
         imageButtonAllRecipes.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +64,7 @@ public class HomepageActivity extends AppCompatActivity {
                 intentAllRecipes.putExtra("user", loggedInUser);
 
                 startActivity(intentAllRecipes);
+                overridePendingTransition(R.anim.fade, R.anim.fade_out);
             }
         });
 
@@ -73,6 +75,7 @@ public class HomepageActivity extends AppCompatActivity {
                 intentAddRecipe.putExtra("user", loggedInUser);
 
                 startActivity(intentAddRecipe);
+                overridePendingTransition(R.anim.fade, R.anim.fade_out);
             }
         });
 
@@ -83,6 +86,7 @@ public class HomepageActivity extends AppCompatActivity {
                 intentProfile.putExtra("user", loggedInUser);
 
                 startActivity(intentProfile);
+                overridePendingTransition(R.anim.fade, R.anim.fade_out);
             }
         });
 
@@ -93,6 +97,7 @@ public class HomepageActivity extends AppCompatActivity {
                 intentProfile.putExtra("user", loggedInUser);
 
                 startActivity(intentProfile);
+                overridePendingTransition(R.anim.fade, R.anim.fade_out);
             }
         });
 
@@ -105,10 +110,14 @@ public class HomepageActivity extends AppCompatActivity {
         builder.setTitle("Uyarı");
         builder.setPositiveButton("Evet", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+
                 getOperations.logOut(HomepageActivity.this);
-                Intent intent = new Intent(HomepageActivity.this, MainActivity.class);
+                Intent intent = new Intent(HomepageActivity.this , MainActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.ltor, R.anim.fade_out);
+
             }
+
         });
         builder.setNegativeButton("Hayır", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -118,5 +127,6 @@ public class HomepageActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+
     }
 }

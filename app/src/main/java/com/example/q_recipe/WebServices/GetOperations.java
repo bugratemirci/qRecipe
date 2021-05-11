@@ -1,7 +1,10 @@
 package com.example.q_recipe.WebServices;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -14,9 +17,12 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.q_recipe.ENV.GlobalVariables;
+import com.example.q_recipe.HomepageActivity;
+import com.example.q_recipe.MainActivity;
 import com.example.q_recipe.Models.Ingredient;
 import com.example.q_recipe.Models.Recipe;
 import com.example.q_recipe.Models.User;
+import com.example.q_recipe.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -237,8 +243,7 @@ public class GetOperations {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // response
-                        Log.d("Response", response);
+
 
 
                     }

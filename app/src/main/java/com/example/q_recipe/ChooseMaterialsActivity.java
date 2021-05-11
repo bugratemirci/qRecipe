@@ -92,7 +92,9 @@ public class ChooseMaterialsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ingredients.add(String.valueOf(selectedIngredients.toArray()[position]));
                 selectedIngredients.remove(String.valueOf(selectedIngredients.toArray()[position]));
+
                 fillListView(null);
+
             }
         });
         buttonUploadAPicture.setOnClickListener(new View.OnClickListener() {
@@ -142,6 +144,12 @@ public class ChooseMaterialsActivity extends AppCompatActivity {
             listviewSelectedRecipeMaterials.setAdapter(selectedRecipeNamesAdapter);
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.ltor, R.anim.fade_out);
     }
 
 }

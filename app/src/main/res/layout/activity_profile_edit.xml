@@ -44,18 +44,20 @@
         android:layout_toEndOf="@+id/textView14"
         android:layout_toRightOf="@+id/textView14"
         android:ems="10"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:hint="*******"/>
 
     <Button
         android:id="@+id/buttonProfileEditSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textboxProfileEditPassword"
+        android:layout_below="@+id/textboxAboutMeProfileEdit"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginStart="150dp"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="49dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="152dp"
+        android:layout_marginLeft="152dp"
+        android:layout_marginTop="29dp"
         android:background="@drawable/buttonstyle"
         android:text="Kaydet"
         android:textColor="@color/buttonTextColors"
@@ -107,4 +109,29 @@
         android:layout_marginLeft="40dp"
         android:layout_marginTop="65dp"
         android:text="Parola:" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView16"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="60dp"
+        android:text="Hakkımda:" />
+
+    <EditText
+        android:id="@+id/textboxAboutMeProfileEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textboxProfileEditPassword"
+        android:layout_marginStart="55dp"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="34dp"
+        android:layout_toEndOf="@+id/textView14"
+        android:layout_toRightOf="@+id/textView14"
+        android:ems="10"
+        android:inputType="textPersonName" />
 </RelativeLayout>

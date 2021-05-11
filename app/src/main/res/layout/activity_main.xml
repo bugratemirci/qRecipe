@@ -11,15 +11,15 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="243dp"
-        android:layout_height="223dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="-5dp"
-        android:layout_marginEnd="78dp"
-        android:layout_marginRight="78dp"
+        android:layout_marginTop="59dp"
+        android:layout_marginEnd="129dp"
+        android:layout_marginRight="129dp"
         android:src="@drawable/ic_baseline_person_24" />
 
     <EditText
@@ -45,7 +45,10 @@
         android:layout_alignStart="@+id/textboxEmailLogin"
         android:layout_alignLeft="@+id/textboxEmailLogin"
         android:layout_alignBottom="@+id/buttonLogin"
-        android:layout_marginBottom="130dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginBottom="105dp"
         android:background="#11000000"
         android:ems="10"
         android:gravity="center"

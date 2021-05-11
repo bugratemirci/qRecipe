@@ -4,8 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,10 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Q_recipe"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DenemeActivity">
-
-        </activity>
-        <activity android:name=".RecipeDetailActivity"></activity>
+        <activity android:name=".EditRecipeByAdminActivity"></activity>
+        <activity android:name=".EditUserActivity" />
+        <activity android:name=".AdminDashboardUserOperationsActivity" />
+        <activity android:name=".AddIngredientsActivity" />
+        <activity android:name=".RecipeDetailActivity" />
         <activity android:name=".AdminDashboardActivity" />
         <activity android:name=".SearchWithIngredientsRecipeListActivity" />
         <activity android:name=".SearchWithIgredientsActivity" />

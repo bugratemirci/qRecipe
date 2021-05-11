@@ -97,6 +97,7 @@ public class SearchWithIgredientsActivity extends AppCompatActivity {
                 Intent intent = new Intent(SearchWithIgredientsActivity.this, SearchWithIngredientsRecipeListActivity.class);
                 intent.putExtra("ingredientsList", selectedIngredients);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade, R.anim.fade_out);
             }
         });
 
@@ -120,5 +121,10 @@ public class SearchWithIgredientsActivity extends AppCompatActivity {
             listviewSearchIngredientsSelected.setAdapter(selectedRecipeNamesAdapter);
         }
 
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.ltor, R.anim.fade_out);
     }
 }

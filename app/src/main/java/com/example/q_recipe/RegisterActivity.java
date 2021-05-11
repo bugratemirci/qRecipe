@@ -20,13 +20,13 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        buttonSaveRegister = findViewById(R.id.buttonSaveRegister);
-        textboxNameRegister = findViewById(R.id.textboxNameRegister);
-        textboxEmailRegister = findViewById(R.id.textboxEmailRegister);
-        textboxPasswordRegister = findViewById(R.id.textboxPasswordRegister);
+        buttonSaveRegister = findViewById(R.id.buttonSaveEdit);
+        textboxNameRegister = findViewById(R.id.textboxNameEdit);
+        textboxEmailRegister = findViewById(R.id.textboxEmailEdit);
+        textboxPasswordRegister = findViewById(R.id.textboxPasswordEdit);
         labelRegisterWarning = findViewById(R.id.labelRegisterWarning);
-        textboxAboutMeRegister = findViewById(R.id.textboxAboutMeRegister);
-        textboxPhoneRegister = findViewById(R.id.textboxPhoneRegister);
+        textboxAboutMeRegister = findViewById(R.id.textboxAboutMeEdit);
+        textboxPhoneRegister = findViewById(R.id.textboxPhoneEdit);
 
         String token = FirebaseInstanceId.getInstance().getToken();
         getSupportActionBar().hide();
@@ -47,5 +47,10 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.ltor, R.anim.fade_out);
     }
 }

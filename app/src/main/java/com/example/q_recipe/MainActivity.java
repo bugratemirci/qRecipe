@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade, R.anim.fade_out);
 
             }
         });
@@ -62,7 +63,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchWithIgredientsActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade, R.anim.fade_out);
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.ltor, R.anim.fade_out);
     }
 }
