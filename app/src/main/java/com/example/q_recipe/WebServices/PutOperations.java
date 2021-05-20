@@ -44,8 +44,6 @@ public class PutOperations {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // response
-                        Log.d("Response", response);
                         labelRegisterWarning.setText("Kayıt başarılı");
                     }
                 },

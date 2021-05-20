@@ -405,7 +405,7 @@ public class PostOperations {
     }
 
 
-    public void loginOperations(Context context, String email, String password) {
+    public void loginOperations(Context context, String email, String password, TextView textboxLoginWarning) {
         JSONObject postDataParams = new JSONObject();
 
         try {
@@ -435,7 +435,7 @@ public class PostOperations {
                             loggedInUser.setPhone(jsonObjectData.getString("phone"));
                             loggedInUser.setRole(jsonObjectData.getString("role"));
                             loggedInUser.setProfile_image(jsonObjectData.getString("profile_image_string"));
-
+                            textboxLoginWarning.setText("Giriş başarılı");
 
                             Intent intent = new Intent(context, HomepageActivity.class);
                             intent.putExtra("user", loggedInUser);
@@ -467,7 +467,7 @@ public class PostOperations {
                                 // returned data is not JSONObject?
                                 e2.printStackTrace();
                             }
-
+                            textboxLoginWarning.setText("Giriş başarısız!");
                         }
                     }
                 }

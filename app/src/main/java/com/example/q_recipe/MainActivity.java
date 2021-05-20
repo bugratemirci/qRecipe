@@ -16,10 +16,10 @@ import com.example.q_recipe.WebServices.PostOperations;
 
 public class MainActivity extends AppCompatActivity {
 
-    private CardView buttonLogin, buttonContinueWithoutLogin;
+    private CardView buttonLogin;
     private PostOperations postOperations = new PostOperations();
     private EditText textboxEmailLogin, textboxPasswordLogin;
-    private TextView  textViewRegister;
+    private TextView  textViewRegister, textboxLoginWarning;
 
 
     private GetOperations getOperations = new GetOperations();
@@ -34,10 +34,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         buttonLogin = findViewById(R.id.buttonLogin);
-        buttonContinueWithoutLogin = findViewById(R.id.buttonContinueWithoutLogin);
+
         textboxEmailLogin = findViewById(R.id.textboxEmailLogin);
         textboxPasswordLogin = findViewById(R.id.textboxPasswordLogin);
-
+        textboxLoginWarning = findViewById(R.id.textboxLoginWarning);
         textViewRegister = findViewById(R.id.textViewRegister);
         textViewRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,18 +54,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                postOperations.loginOperations(MainActivity.this,String.valueOf(textboxEmailLogin.getText()), String.valueOf(textboxPasswordLogin.getText()));
+                postOperations.loginOperations(MainActivity.this,String.valueOf(textboxEmailLogin.getText()), String.valueOf(textboxPasswordLogin.getText()), textboxLoginWarning);
 
             }
         });
-        buttonContinueWithoutLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SearchWithIgredientsActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade, R.anim.fade_out);
-            }
-        });
+
     }
     @Override
     public void onBackPressed() {
