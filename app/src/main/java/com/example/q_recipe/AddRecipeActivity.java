@@ -29,10 +29,11 @@ import java.io.IOException;
 public class AddRecipeActivity extends AppCompatActivity {
     private EditText textboxNewRecipeName;
     private Button buttonNewRecipeChooseMaterials;
-    private ImageView uploadImageButtonAddRecipe;
+    private ImageView uploadImageButtonAddRecipe, showImageAddRecipe;
     private Bitmap bitmap;
     private RecipeDetails recipeDetails = new RecipeDetails();
-    private String imageString;
+    private String imageString = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,7 @@ public class AddRecipeActivity extends AppCompatActivity {
 
         buttonNewRecipeChooseMaterials = findViewById(R.id.buttonNewRecipeChooseMaterials);
         uploadImageButtonAddRecipe = findViewById(R.id.uploadImageButtonAddRecipe);
+        showImageAddRecipe = findViewById(R.id.showImageAddRecipe);
 
         Intent intent = getIntent();
         LoggedInUser loggedInUser = (LoggedInUser) intent.getSerializableExtra("user");
@@ -51,7 +53,8 @@ public class AddRecipeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentChooseMaterials = new Intent(AddRecipeActivity.this, ChooseMaterialsActivity.class);
                 recipeDetails.setRecipeName(String.valueOf(textboxNewRecipeName.getText()));
-                recipeDetails.setRecipeImage(imageString);
+
+
                 intentChooseMaterials.putExtra("user", loggedInUser);
                 intentChooseMaterials.putExtra("recipe", recipeDetails);
 
@@ -85,14 +88,14 @@ public class AddRecipeActivity extends AppCompatActivity {
             try {
 
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse("file:///"+picturePath));
-                uploadImageButtonAddRecipe.setImageDrawable(new BitmapDrawable(getApplicationContext().getResources(), bitmap));
+                showImageAddRecipe.setImageDrawable(new BitmapDrawable(getApplicationContext().getResources(), bitmap));
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 75, byteArrayOutputStream);
-                Bitmap.createScaledBitmap(bitmap, 250, 250, false);
+                Bitmap.createScaledBitmap(bitmap, 500, 500, false);
                 byte[] imageBytes = byteArrayOutputStream.toByteArray();
                 imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-
+                recipeDetails.setRecipeImage(imageString);
             } catch (IOException e) {
                 e.printStackTrace();
             }

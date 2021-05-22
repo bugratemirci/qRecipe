@@ -100,10 +100,11 @@ public class ChooseMaterialsActivity extends AppCompatActivity {
         buttonUploadAPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                recipeDetails.setRecipeDescription(String.valueOf(textboxNewRecipeDescription.getText()));
                 PostOperations postOperations = new PostOperations();
                 postOperations.addRecipe(ChooseMaterialsActivity.this,
                         recipeDetails.getRecipeName(),
-                        String.valueOf(textboxNewRecipeDescription.getText()),
+                        recipeDetails.getRecipeDescription(),
                         selectedIngredients,
                         labelChooseMaterialWarningLabel,
                         loggedInUser.getAccess_token(),
@@ -111,16 +112,7 @@ public class ChooseMaterialsActivity extends AppCompatActivity {
                         loggedInUser,
                         recipeDetails.getRecipeImage()
                 );
-                GetOperations getOperations = new GetOperations();
-                List<User> userList = getOperations.getUsers();
 
-                for(int i=0; i<userList.size();i++){
-                    postOperations.pushNotification(ChooseMaterialsActivity.this,
-                            recipeDetails.getRecipeName(),
-                            loggedInUser.getName() + " tarafından yeni tarif eklendi",
-                            userList.get(i).getNotificationToken(),
-                            "AAAAWHco7YE:APA91bGt9bFWiRSsL1DeV8NAf7B5-PiqpmxeWIoBzXUDOPS5x46VhgWoCPk4VlvOEQa6DKr1tj5_LgrptukHbIo1OYpf9Ho5LtlkLsz7kTFte6u9ytpSRVvy9xGgve-MY6q3f3Q-V1mw");
-                }
             }
         });
     }

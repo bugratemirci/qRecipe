@@ -22,9 +22,8 @@
             android:layout_width="245dp"
             android:layout_height="206dp"
             android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/splashicon" />
+
+            android:src="@drawable/chef_app" />
 
         <TextView
             android:id="@+id/textViewSplashAppName"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AdminDashboardActivity"
-    android:background="@drawable/cut_card_background">
+    android:background="@drawable/gradient">
 
     <TextView
         android:id="@+id/textViewAdminDashboardTitle"
