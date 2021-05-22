@@ -11,7 +11,7 @@
         android:id="@+id/textboxWithoutLoginSearch"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#11000000"
+        android:background="@drawable/textview_border"
         android:drawableLeft="@drawable/ic_baseline_search_48"
         android:ems="10"
         android:gravity="center"
@@ -20,14 +20,17 @@
         android:textColor="@color/White"
         android:textColorHint="@color/White"
         android:textSize="22sp"
-
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         />
 
     <ListView
         android:id="@+id/listviewWithoutLoginRecipes1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/textboxWithoutLoginSearch">
+        android:layout_below="@+id/textboxWithoutLoginSearch"
+        android:layout_margin="5dp">
 
     </ListView>
 

@@ -148,7 +148,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-
         }
     }
 
@@ -210,6 +209,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     return true;
                 }
 
+
                 @Override
                 public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                     float xDiff = e2.getX() - e1.getX();
@@ -219,7 +219,10 @@ public class UserProfileActivity extends AppCompatActivity {
                         if(Math.abs(xDiff) > Math.abs(yDiff)){
                             if(Math.abs(xDiff) > threshold && Math.abs(velocityX) > velocity_threshold){
                                 if(xDiff > 0){
-                                    Log.d("Swiped", "Right");
+                                    Intent intent = new Intent(UserProfileActivity.this, HomepageActivity.class);
+                                    intent.putExtra("user", loggedInUser);
+                                    startActivity(intent);
+                                    overridePendingTransition(R.anim.ltor, R.anim.fade_out);
                                 }
                                 else
                                 {
@@ -233,6 +236,7 @@ public class UserProfileActivity extends AppCompatActivity {
                                 if(yDiff > 0){
                                     finish();
                                     startActivity(getIntent());
+                                    overridePendingTransition(R.anim.fade, R.anim.fade_out);
                                 }
                                 else
                                 {

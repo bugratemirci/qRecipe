@@ -4,85 +4,95 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightgray"
-    tools:context=".SearchWithIgredientsActivity">
-
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textboxSearchIngredientAddRecipe"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
-        android:layout_marginEnd="155dp"
-        android:layout_marginRight="155dp"
-        android:text="Tüm Malzemeler" />
-
-    <ListView
-        android:id="@+id/listviewSearchIngredientsAll"
+    android:background="@drawable/gradient"
+    tools:context=".SearchWithIgredientsActivity"
+    android:id="@+id/relativeSearchWithIngredinents2"
+    >
+    <LinearLayout
+        android:id="@+id/relativeSearchWithIngredinents1"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_below="@+id/textView20"
-        android:layout_marginTop="30dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
 
-    </ListView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Arama"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+            <EditText
+                android:id="@+id/textboxSearchIngredientAddRecipe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textColor="@color/white"
+                android:background="@drawable/textview_border"
+                android:layout_marginLeft="10dp"/>
 
-    <ListView
-        android:id="@+id/listviewSearchIngredientsSelected"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_below="@+id/textView21"
-        android:layout_marginTop="12dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tüm Malzemeler"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                />
+            <ListView
+                android:id="@+id/listviewSearchIngredientsAll"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_below="@+id/textView20"
+                android:layout_marginTop="12dp">
 
-    <Button
-        android:id="@+id/buttonSearchWithIngredients"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/listviewSearchIngredientsSelected"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/buttonstyle"
-        android:text="Listele"
-        android:textColor="@color/buttonTextColors"
-        app:backgroundTint="@color/buttonColors" />
+            </ListView>
 
-    <TextView
-        android:id="@+id/textView21"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/listviewSearchIngredientsAll"
-        android:layout_alignStart="@+id/textView20"
-        android:layout_alignLeft="@+id/textView20"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="19dp"
-        android:text="Aranacak Malzemeler" />
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aranacak Malzemeler"
+                android:textColor="@color/white"
+                android:layout_marginTop="12dp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                />
+            <ListView
+                android:id="@+id/listviewSearchIngredientsSelected"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginTop="12dp" />
+            <Button
+                android:id="@+id/buttonSearchWithIngredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/buttonstyle"
+                android:text="Listele"
+                android:textColor="@color/buttonTextColors"
+                app:backgroundTint="@color/buttonColors"
+                android:layout_marginTop="12dp"/>
 
-    <EditText
-        android:id="@+id/textboxSearchIngredientAddRecipe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="29dp"
-        android:layout_marginLeft="29dp"
-        android:layout_marginTop="19dp"
-        android:layout_toEndOf="@+id/textView2"
-        android:layout_toRightOf="@+id/textView2"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="39dp"
-        android:layout_marginLeft="39dp"
-        android:layout_marginTop="30dp"
-        android:text="Arama" />
+    </LinearLayout>
 
 </RelativeLayout>

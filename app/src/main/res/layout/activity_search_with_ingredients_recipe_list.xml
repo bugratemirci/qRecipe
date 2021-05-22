@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightgray"
+    android:background="@drawable/gradient"
     tools:context=".SearchWithIngredientsRecipeListActivity">
 
     <ListView
         android:id="@+id/listviewRecipeListByIngredients"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"/>
 </RelativeLayout>

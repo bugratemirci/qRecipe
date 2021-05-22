@@ -10,12 +10,41 @@
     android:background="@drawable/gradient">
 
 
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <ImageView
+        <ImageView
+            android:id="@+id/imageViewSplashLogo"
+            android:layout_width="245dp"
+            android:layout_height="206dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/splashicon" />
+
+        <TextView
+            android:id="@+id/textViewSplashAppName"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@mipmap/ic_launcher_foreground"
-        android:layout_gravity="center"/>
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bangers"
+            android:gravity="center"
+            android:text="Hızlı Tarif"
+            android:textColor="#FFFFFF"
+            android:textSize="70sp" />
+
+        <TextView
+            android:id="@+id/textViewSplashAppContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Öğrenci evlerinin olmazsa olmazı"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+    </LinearLayout>
 
 
 </LinearLayout>

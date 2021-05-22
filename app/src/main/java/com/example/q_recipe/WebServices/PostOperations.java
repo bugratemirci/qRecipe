@@ -609,7 +609,7 @@ public class PostOperations {
                             }
 
                             ArrayAdapter<String> recipeNamesAdapter = new  ArrayAdapter<String>(context,
-                                    android.R.layout.simple_list_item_1, android.R.id.text1, names);
+                                    R.layout.listview_white_text, android.R.id.text1, names);
                             listViewSearch.setAdapter(recipeNamesAdapter);
 
                             searchRecipe.setIngredients(ids);

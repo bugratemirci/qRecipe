@@ -109,7 +109,7 @@ public class MainPageActivity extends AppCompatActivity {
             }
 
             ArrayAdapter<String> recipeNamesAdapter = new  ArrayAdapter<String>(this,
-                    android.R.layout.simple_list_item_1, android.R.id.text1, names);
+                    R.layout.listview_white_text, android.R.id.text1, names);
             listviewWithoutLoginRecipes.setAdapter(recipeNamesAdapter);
         }
         else{
@@ -124,7 +124,7 @@ public class MainPageActivity extends AppCompatActivity {
             }
 
             ArrayAdapter<String> recipeNamesAdapter = new  ArrayAdapter<String>(this,
-                    android.R.layout.simple_list_item_1, android.R.id.text1, names);
+                    R.layout.listview_white_text, android.R.id.text1, names);
             listviewWithoutLoginRecipes.setAdapter(recipeNamesAdapter);
 
         }
