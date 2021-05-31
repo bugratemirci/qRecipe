@@ -3,6 +3,7 @@ package com.example.q_recipe;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.Animation;
@@ -13,8 +14,8 @@ import android.widget.TextView;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    private LinearLayout linearLayout1;
-    private Animation uptodown, bottom, top ;
+
+    private Animation  bottom, top ;
     private ImageView imageViewSplashLogo;
     private TextView textViewSplashAppName, textViewSplashAppContent;
 
@@ -25,10 +26,12 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         getSupportActionBar().hide();
-        linearLayout1 = findViewById(R.id.linearLayout1);
+
         imageViewSplashLogo = findViewById(R.id.imageViewSplashLogo);
         textViewSplashAppName = findViewById(R.id.textViewSplashAppName);
         textViewSplashAppContent = findViewById(R.id.textViewSplashAppContent);
+
+
         top = AnimationUtils.loadAnimation(this, R.anim.top_animation);
         bottom = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
 

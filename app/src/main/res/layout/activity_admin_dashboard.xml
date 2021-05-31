@@ -18,6 +18,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/antic"
         android:text="Admin Paneli"
         android:textColor="@color/white"
         android:textSize="30sp"
@@ -54,7 +55,9 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_person_72"/>
+                    android:src="@drawable/ic_baseline_person_72"
+                    android:background="@drawable/cerclebackgroundpurple"
+                    android:padding="10dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -85,7 +88,9 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_fastfood_72"/>
+                    android:src="@drawable/ic_baseline_fastfood_72"
+                    android:background="@drawable/cerclebackgroundpink"
+                    android:padding="10dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -116,7 +121,9 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_add_72"/>
+                    android:src="@drawable/ic_baseline_add_72"
+                    android:background="@drawable/cerclebackgroundgreen"
+                    android:padding="10dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -147,7 +154,10 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_ads_click_24"/>
+                    android:src="@drawable/ic_baseline_ads_click_24"
+                    android:background="@drawable/cerclebackgroundyellow"
+                    android:padding="10dp"
+                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -39,10 +39,11 @@
             android:id="@+id/textViewSplashAppContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/bangers"
             android:gravity="center"
             android:text="Öğrenci evlerinin olmazsa olmazı"
             android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:textSize="19sp" />
     </LinearLayout>
 
 

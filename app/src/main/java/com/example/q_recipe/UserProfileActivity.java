@@ -15,6 +15,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -25,6 +26,7 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -66,7 +68,9 @@ public class UserProfileActivity extends AppCompatActivity {
     private GetOperations getOperations = new GetOperations();
     protected LocationManager locationManager;
     protected LocationListener locationListener;
+    private ImageView imageViewSpinnerRefresh;
     protected Context context;
+    private AnimationDrawable animationDrawable;
     SwipeListener swipeListener;
     private LinearLayout linearLayoutUserProfile;
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -89,6 +93,12 @@ public class UserProfileActivity extends AppCompatActivity {
         imageViewProfileImage = findViewById(R.id.imageViewProfileImage);
         textboxUserLocation = findViewById(R.id.textboxUserLocation);
         linearLayoutUserProfile = findViewById(R.id.linearLayoutUserProfile);
+        imageViewSpinnerRefresh = findViewById(R.id.imageViewSpinnerRefresh);
+        imageViewSpinnerRefresh.setVisibility(View.INVISIBLE);
+
+        imageViewSpinnerRefresh.setBackgroundResource(R.drawable.reload_spinner);
+        animationDrawable = (AnimationDrawable) imageViewSpinnerRefresh.getBackground();
+
         String originalInput = loggedInUser.getProfile_image();
         originalInput = originalInput.replace("\n", "");
         byte[] result = Base64.getDecoder().decode(originalInput);
@@ -234,9 +244,18 @@ public class UserProfileActivity extends AppCompatActivity {
                         else {
                             if(Math.abs(yDiff) > threshold && Math.abs(velocityY) > velocity_threshold){
                                 if(yDiff > 0){
-                                    finish();
-                                    startActivity(getIntent());
-                                    overridePendingTransition(R.anim.fade, R.anim.fade_out);
+                                    imageViewSpinnerRefresh.setVisibility(View.VISIBLE);
+                                    animationDrawable.start();
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            imageViewSpinnerRefresh.setVisibility(View.INVISIBLE);
+                                            animationDrawable.stop();
+                                            finish();
+                                            startActivity(getIntent());
+                                        }
+                                    }, 1500);
+
                                 }
                                 else
                                 {
