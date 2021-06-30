@@ -82,7 +82,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         loggedInUser = (LoggedInUser) intent.getSerializableExtra("user");
-        getCurrentLocation();
+
         user = getOperations.getUser(loggedInUser.getId());
 
         textViewProfileName = findViewById(R.id.textViewProfileName);
@@ -95,6 +95,8 @@ public class UserProfileActivity extends AppCompatActivity {
         linearLayoutUserProfile = findViewById(R.id.linearLayoutUserProfile);
         imageViewSpinnerRefresh = findViewById(R.id.imageViewSpinnerRefresh);
         imageViewSpinnerRefresh.setVisibility(View.INVISIBLE);
+
+        getCurrentLocation();
 
         imageViewSpinnerRefresh.setBackgroundResource(R.drawable.reload_spinner);
         animationDrawable = (AnimationDrawable) imageViewSpinnerRefresh.getBackground();
@@ -174,10 +176,17 @@ public class UserProfileActivity extends AppCompatActivity {
         locationRequest.setInterval(10000);
         locationRequest.setFastestInterval(3000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        boolean gps_enabled = false;
+
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             return;
+        }
+        locationManager = (LocationManager) getSystemService( this.LOCATION_SERVICE );
+        gps_enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if(!gps_enabled){
+            textboxUserLocation.setText("Lütfen GPS'inizi açın.");
         }
         LocationServices.getFusedLocationProviderClient(getApplicationContext()).requestLocationUpdates(locationRequest, new LocationCallback() {
             @Override
@@ -197,6 +206,7 @@ public class UserProfileActivity extends AppCompatActivity {
                         textboxUserLocation.setText(adressLine.replace(" ", "/"));
 
                     } catch (IOException e) {
+                        textboxUserLocation.setText("Lütfen GPS'inizi açınız");
                         e.printStackTrace();
                     }
 
